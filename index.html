@@ -1039,8 +1039,8 @@
       cpuX = Math.min(Math.max(cpuX,0), W-paddleW);
       if (ball.y<=20 && ball.x>cpuX && ball.x<cpuX+paddleW) ball.vy *= -1;
       if (ball.y>=H-27 && ball.x>playerX && ball.x<playerX+paddleW) ball.vy *= -1.03;
-      if (ball.y < 0){ you++; baseSpeed += 0.3; cpuSpeed = Math.min(4.2, cpuSpeed+0.15); resetBall(); }
-      if (ball.y > H){ cpu++; resetBall(); }
+      if (ball.y < 0){ you++; baseSpeed += 0.3; cpuSpeed = Math.min(4.2, cpuSpeed+0.15); playerX = W/2-paddleW/2; cpuX = W/2-paddleW/2; resetBall(); }
+      if (ball.y > H){ cpu++; playerX = W/2-paddleW/2; cpuX = W/2-paddleW/2; resetBall(); }
       document.getElementById('pongScore').textContent = `You ${you} - ${cpu} CPU · Speed Lv.${Math.min(5, Math.floor(baseSpeed-2))}`;
       if (you>=5 || cpu>=5){
         over = true;
@@ -1422,6 +1422,7 @@
       });
       if (ball.y > H){
         lives--; document.getElementById('breakLevel').textContent = `Level: ${level} · Lives: ${lives}`;
+        paddleX = W/2-paddleW/2;
         if (lives<=0){ over=true; endGame('Game Over! Score: '+score+' (reached level '+level+')'); }
         else ball = {x:W/2,y:H-40,vx:ballSpeed,vy:-ballSpeed};
       }
