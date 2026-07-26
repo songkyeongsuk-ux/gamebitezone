@@ -1007,14 +1007,18 @@
     stage.innerHTML = `
       <div style="width:100%;">
         <div class="g-hud"><span id="pongScore">You 0 - 0 CPU</span><span>Drag to move</span></div>
-        <div class="g-canvas-wrap"><canvas id="pongCanvas" width="300" height="380"></canvas></div>
+        <div class="g-canvas-wrap" style="position:relative;">
+          <canvas id="pongCanvas" width="300" height="380"></canvas>
+          <button class="g-btn" id="pongStartBtn" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">▶ Start</button>
+        </div>
       </div>`;
     const canvas = document.getElementById('pongCanvas');
     const ctx = canvas.getContext('2d');
+    const startBtn = document.getElementById('pongStartBtn');
     const W=300,H=380, paddleW=60, paddleH=10;
     let playerX = W/2-paddleW/2, cpuX = W/2-paddleW/2;
-    let ball = {x:W/2,y:H/2,vx:3,vy:3};
-    let you=0, cpu=0, over=false;
+    let ball = {x:W/2,y:H/2,vx:0,vy:0};
+    let you=0, cpu=0, over=false, waiting=true;
     function pointer(e){
       const rect = canvas.getBoundingClientRect();
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -1029,18 +1033,33 @@
       ctx.fillStyle='#FF6B4A'; ctx.fillRect(playerX,H-20,paddleW,paddleH);
       ctx.beginPath(); ctx.arc(ball.x,ball.y,7,0,Math.PI*2); ctx.fillStyle='#8BC34A'; ctx.fill();
     }
-    function resetBall(){ ball = {x:W/2,y:H/2,vx:baseSpeed*(Math.random()>0.5?1:-1),vy:baseSpeed*(Math.random()>0.5?1:-1)}; }
     let baseSpeed = 3, cpuSpeed = 2.4;
+    function resetBall(){ ball = {x:W/2,y:H/2,vx:0,vy:0}; }
+    function launchBall(){
+      waiting = false;
+      startBtn.style.display = 'none';
+      ball.vx = baseSpeed*(Math.random()>0.5?1:-1);
+      ball.vy = baseSpeed*(Math.random()>0.5?1:-1);
+    }
+    startBtn.onclick = launchBall;
     function tick(){
-      if (over) return;
+      if (over || waiting) return;
       ball.x += ball.vx; ball.y += ball.vy;
       if (ball.x<=6||ball.x>=W-6) ball.vx *= -1;
       cpuX += Math.sign((ball.x-paddleW/2) - cpuX) * cpuSpeed;
       cpuX = Math.min(Math.max(cpuX,0), W-paddleW);
       if (ball.y<=20 && ball.x>cpuX && ball.x<cpuX+paddleW) ball.vy *= -1;
       if (ball.y>=H-27 && ball.x>playerX && ball.x<playerX+paddleW) ball.vy *= -1.03;
-      if (ball.y < 0){ you++; baseSpeed += 0.3; cpuSpeed = Math.min(4.2, cpuSpeed+0.15); playerX = W/2-paddleW/2; cpuX = W/2-paddleW/2; resetBall(); }
-      if (ball.y > H){ cpu++; playerX = W/2-paddleW/2; cpuX = W/2-paddleW/2; resetBall(); }
+      if (ball.y < 0){
+        you++; baseSpeed += 0.3; cpuSpeed = Math.min(4.2, cpuSpeed+0.15);
+        playerX = W/2-paddleW/2; cpuX = W/2-paddleW/2;
+        resetBall(); waiting = true; startBtn.style.display = 'block';
+      }
+      if (ball.y > H){
+        cpu++;
+        playerX = W/2-paddleW/2; cpuX = W/2-paddleW/2;
+        resetBall(); waiting = true; startBtn.style.display = 'block';
+      }
       document.getElementById('pongScore').textContent = `You ${you} - ${cpu} CPU · Speed Lv.${Math.min(5, Math.floor(baseSpeed-2))}`;
       if (you>=5 || cpu>=5){
         over = true;
@@ -1366,15 +1385,19 @@
     stage.innerHTML = `
       <div style="width:100%;">
         <div class="g-hud"><span id="breakScore">Score: 0</span><span id="breakLevel">Level: 1 · Lives: 3</span></div>
-        <div class="g-canvas-wrap"><canvas id="breakCanvas" width="300" height="360"></canvas></div>
+        <div class="g-canvas-wrap" style="position:relative;">
+          <canvas id="breakCanvas" width="300" height="360"></canvas>
+          <button class="g-btn" id="breakStartBtn" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">▶ Start</button>
+        </div>
       </div>`;
     const canvas = document.getElementById('breakCanvas');
     const ctx = canvas.getContext('2d');
+    const startBtn = document.getElementById('breakStartBtn');
     const W=300,H=360, paddleW=60;
     let paddleX = W/2-paddleW/2;
     let ballSpeed = 2.5;
-    let ball = {x:W/2,y:H-40,vx:ballSpeed,vy:-ballSpeed};
-    let score=0, lives=3, over=false, level=1;
+    let ball = {x:W/2,y:H-40,vx:0,vy:0};
+    let score=0, lives=3, over=false, level=1, waiting=true;
     const cols=7, brickW=Math.floor(W/cols)-4, brickH=16;
     let rows = 3;
     let bricks = [];
@@ -1402,14 +1425,25 @@
       clearInterval(loop);
       document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">${msg}</div><button class="g-btn" onclick="startBreakout()">Play Again</button>`);
     }
+    function launchBall(){
+      waiting = false;
+      startBtn.style.display = 'none';
+      ball.vx = ballSpeed*(Math.random()>0.5?1:-1);
+      ball.vy = -ballSpeed;
+    }
+    startBtn.onclick = launchBall;
     function nextLevel(){
       level++; rows = Math.min(6, rows+1); ballSpeed = Math.min(5, ballSpeed+0.4);
       buildBricks();
-      ball = {x:W/2,y:H-40,vx:ballSpeed,vy:-ballSpeed};
+      paddleX = W/2-paddleW/2;
+      ball = {x:W/2,y:H-40,vx:0,vy:0};
+      waiting = true;
+      startBtn.style.display = 'block';
       document.getElementById('breakLevel').textContent = `Level: ${level} · Lives: ${lives}`;
+      draw();
     }
     function tick(){
-      if (over) return;
+      if (over || waiting) return;
       ball.x += ball.vx; ball.y += ball.vy;
       if (ball.x<=6||ball.x>=W-6) ball.vx*=-1;
       if (ball.y<=6) ball.vy*=-1;
@@ -1424,7 +1458,11 @@
         lives--; document.getElementById('breakLevel').textContent = `Level: ${level} · Lives: ${lives}`;
         paddleX = W/2-paddleW/2;
         if (lives<=0){ over=true; endGame('Game Over! Score: '+score+' (reached level '+level+')'); }
-        else ball = {x:W/2,y:H-40,vx:ballSpeed,vy:-ballSpeed};
+        else {
+          ball = {x:W/2,y:H-40,vx:0,vy:0};
+          waiting = true;
+          startBtn.style.display = 'block';
+        }
       }
       if (bricks.every(b=>!b.alive)){ nextLevel(); }
       draw();
