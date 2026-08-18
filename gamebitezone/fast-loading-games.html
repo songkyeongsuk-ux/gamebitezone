@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 Games You Can Play in Under a Minute — GameBiteZone</title>
+<meta name="description" content="Ten browser games that load in about a second and finish in under a minute, chosen for slow connections and older phones.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --coral: #FF6B4A;
+    --coral-dark: #E5502F;
+    --purple: #4A3F6B;
+    --cream: #FFF8F2;
+    --cream-deep: #FBEEE2;
+    --lime: #8BC34A;
+    --ink: #2E2A33;
+    --muted: #8A8390;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Nunito Sans', sans-serif;
+    line-height:1.75;
+  }
+  h1,h2,h3,.display{ font-family:'Baloo 2', sans-serif; }
+
+  .bite-badge{ position:relative; display:inline-flex; width:1em; height:1em; }
+  .bite-shape{ width:100%; height:100%; border-radius:50%; position:relative; }
+  .bite-shape::after{
+    content:""; position:absolute; top:8%; right:-14%;
+    width:46%; height:46%; border-radius:50%; background:var(--cream);
+  }
+
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 6%;
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,248,242,0.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(46,42,51,0.06);
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Baloo 2', sans-serif; font-weight:800; font-size:22px;
+    color:var(--ink); text-decoration:none;
+  }
+  .logo .bite-badge{ width:34px; height:34px; font-size:34px; }
+  .logo .bite-shape{ background:var(--coral); }
+  .logo span.zone{ color:var(--coral-dark); }
+  .nav-links{ display:flex; gap:28px; list-style:none; font-weight:700; font-size:15px; }
+  .nav-links a{ color:var(--ink); text-decoration:none; opacity:0.75; }
+  .nav-links a:hover{ opacity:1; }
+  .nav-cta{
+    background:var(--coral); color:#fff; font-weight:800;
+    padding:11px 22px; border-radius:999px; text-decoration:none;
+    font-size:14.5px; box-shadow:0 4px 14px rgba(255,107,74,0.35);
+  }
+  @media (max-width: 760px){ .nav-links{ display:none; } }
+
+  .wrap{ max-width:780px; margin:0 auto; padding:56px 6% 90px; }
+  .crumbs{ font-size:13.5px; color:var(--muted); margin-bottom:18px; }
+  .crumbs a{ color:var(--muted); text-decoration:none; font-weight:700; }
+  .crumbs a:hover{ color:var(--coral-dark); }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-weight:800; font-size:12.5px; letter-spacing:1.2px; text-transform:uppercase;
+    color:var(--coral-dark); background:rgba(255,107,74,0.1);
+    padding:7px 15px; border-radius:999px; margin-bottom:18px;
+  }
+  h1{ font-size:clamp(30px,4.4vw,42px); line-height:1.15; margin-bottom:12px; }
+  .standfirst{ font-size:17.5px; color:var(--muted); margin-bottom:36px; }
+
+  h2{ font-size:23px; margin-top:42px; margin-bottom:14px; color:var(--purple); }
+  h3{ font-size:18px; margin-top:26px; margin-bottom:10px; color:var(--ink); }
+  p, li{ font-size:16px; color:#3B3641; margin-bottom:15px; }
+  ul, ol{ padding-left:24px; margin-bottom:18px; }
+  li{ margin-bottom:9px; }
+  a{ color:var(--coral-dark); font-weight:700; }
+  strong{ color:var(--ink); }
+
+  .factbox{
+    background:#fff; border:1px solid rgba(74,63,107,0.1);
+    border-radius:16px; padding:22px 26px; margin:26px 0;
+  }
+  .factbox h3{ margin-top:0; font-family:'Baloo 2',sans-serif; font-size:16px; color:var(--coral-dark); letter-spacing:0.3px; }
+  .factbox p:last-child, .factbox li:last-child{ margin-bottom:0; }
+
+  .tip{
+    background:var(--cream-deep); border-left:4px solid var(--lime);
+    border-radius:12px; padding:16px 22px; margin:22px 0; font-size:15.5px;
+  }
+  .tip strong{ color:var(--purple); }
+
+  .playbar{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    background:#fff; border:1px solid rgba(74,63,107,0.1); border-radius:18px;
+    padding:22px 26px; margin:34px 0; flex-wrap:wrap;
+  }
+  .playbar p{ margin:0; font-size:15px; color:var(--muted); max-width:420px; }
+  .playbar .btn{
+    background:var(--coral); color:#fff; font-weight:800; text-decoration:none;
+    padding:12px 26px; border-radius:999px; font-size:15px; white-space:nowrap;
+    box-shadow:0 4px 14px rgba(255,107,74,0.3);
+  }
+
+  .cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:18px; margin:28px 0; }
+  .card{
+    background:#fff; border:1px solid rgba(74,63,107,0.09); border-radius:16px;
+    padding:22px; text-decoration:none; color:inherit; display:block;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .card:hover{ transform:translateY(-3px); box-shadow:0 10px 26px rgba(46,42,51,0.08); }
+  .card .ic{ font-size:26px; display:block; margin-bottom:10px; }
+  .card h3{ margin:0 0 6px; font-size:17px; }
+  .card p{ margin:0; font-size:14px; color:var(--muted); }
+  .card .meta{ display:block; margin-top:12px; font-size:12.5px; font-weight:800; color:var(--coral-dark); letter-spacing:0.5px; }
+
+  .related{ border-top:1px solid rgba(46,42,51,0.1); margin-top:52px; padding-top:30px; }
+  .related h2{ margin-top:0; }
+
+  footer{
+    background:var(--purple); color:#fff; padding:48px 6% 26px;
+  }
+  .footer-top{ max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; }
+  footer .logo{ color:#fff; }
+  .footer-cols{ display:flex; gap:60px; flex-wrap:wrap; }
+  .footer-col h4{ font-size:14px; margin-bottom:14px; opacity:0.6; letter-spacing:0.5px; }
+  .footer-col a{ display:block; color:#fff; text-decoration:none; font-size:14.5px; margin-bottom:10px; opacity:0.85; }
+  .footer-bottom{ text-align:center; margin-top:34px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.15); font-size:13px; opacity:0.6; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <span class="bite-badge"><span class="bite-shape"></span></span>
+    Game<span class="zone">Bite</span>Zone
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#games">Games</a></li>
+    <li><a href="index.html#games">Puzzles</a></li>
+    <li><a href="index.html#games">Quizzes</a></li>
+    <li><a href="guides.html">Guides</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="index.html#games" class="nav-cta">Play Now</a>
+</nav>
+
+<div class="wrap">
+  <div class="crumbs"><a href="index.html">Home</a> &rsaquo; <a href="guides.html">Guides</a> &rsaquo; 10 Fast Games</div>
+  <div class="eyebrow">Feature</div>
+  <h1>10 Games You Can Play in Under a Minute</h1>
+  <p class="standfirst">Not every game needs an hour. These ten load almost instantly, run on hardware most sites have given up on, and finish before your coffee gets cold.</p>
+
+
+  <p>There's a category of gaming that barely gets written about: the sixty-second break. Not a session, not a raid, not a campaign — just something to do between two things while your hands are free and your attention isn't quite.</p>
+
+  <p>Browser mini-games are built for exactly this, and the good ones share a specific set of properties. They start immediately. They have no tutorial. A single round is short enough that abandoning it costs nothing. And critically, they work on a phone that's four years old, on a connection that isn't fast.</p>
+
+  <p>Here are ten from the GameBiteZone collection that fit that description, with a note on what each one is actually for.</p>
+
+  <h2>1. Reaction Test</h2>
+  <p>The shortest thing here — a single round takes about ten seconds. Wait for the screen to change, click as fast as you can, get a number in milliseconds. Most adults land between 220 and 280ms on a browser test.</p>
+  <p><strong>Good for:</strong> the ten seconds between two tabs. <a href="guide-reaction-test.html">What your score actually means &rarr;</a></p>
+
+  <h2>2. Snake</h2>
+  <p>The Nokia classic, and still one of the best-designed simple games ever made. Eat, grow, don't hit anything. The difficulty comes entirely from your own tail, which is a genuinely unusual mechanic.</p>
+  <p><strong>Good for:</strong> a run that can last thirty seconds or five minutes depending on how well it goes. <a href="guide-snake.html">The perimeter strategy &rarr;</a></p>
+
+  <h2>3. 2048</h2>
+  <p>Slide numbered tiles, merge matching pairs, chase the 2048 tile. It looks like a luck game and isn't — a structured board absorbs bad spawns almost indefinitely.</p>
+  <p><strong>Good for:</strong> when you want something you can actually get better at. <a href="guide-2048.html">The corner method &rarr;</a></p>
+
+  <h2>4. Tic-Tac-Toe</h2>
+  <p>Fully solved, always a draw with correct play, and still worth a round or two. The interesting part is spotting whether your opponent knows the fork.</p>
+  <p><strong>Good for:</strong> thirty seconds, and teaching someone about double threats. <a href="guide-tic-tac-toe.html">How to never lose &rarr;</a></p>
+
+  <h2>5. Memory Flip</h2>
+  <p>Card matching on a grid, scored by move count. The skill that matters isn't memory exactly — it's how you encode positions as you reveal them.</p>
+  <p><strong>Good for:</strong> a quiet minute. <a href="guide-memory-flip.html">Halving your move count &rarr;</a></p>
+
+  <h2>6. Whack-a-Mole</h2>
+  <p>Moles appear, you tap them, the pace increases. No strategy, no depth, no pretence of either — pure reflex with an escalating pace.</p>
+  <p><strong>Good for:</strong> when you don't want to think at all.</p>
+
+  <h2>7. Rock Paper Scissors</h2>
+  <p>Three moves, none better than the others, and yet not actually a coin flip against a human — because humans are bad at being random.</p>
+  <p><strong>Good for:</strong> twenty seconds, plus the mild unease of realising you have tells. <a href="guide-rock-paper-scissors.html">Reading the patterns &rarr;</a></p>
+
+  <h2>8. Ping Pong</h2>
+  <p>A browser take on Pong, released in 1972 and widely credited with starting the commercial video game industry. Paddle, ball, angles. It has aged remarkably well.</p>
+  <p><strong>Good for:</strong> a rally or two, and a small amount of history.</p>
+
+  <h2>9. Simon Says</h2>
+  <p>Watch a sequence of colours and tones, repeat it back, watch it get one longer. Most people stall around seven steps, which lines up almost exactly with the classic short-term memory literature.</p>
+  <p><strong>Good for:</strong> a minute, and a demonstration of your own working memory limits. <a href="guide-simon-says.html">How to get past seven &rarr;</a></p>
+
+  <h2>10. Bubble Pop</h2>
+  <p>Aim, shoot, match three. The one game on this list with no time pressure at all — you can leave a shot lined up and come back to it.</p>
+  <p><strong>Good for:</strong> when you want the pace to be yours rather than the game's.</p>
+
+  <div class="factbox">
+    <h3>Why load time is the whole point</h3>
+    <p>A game that takes eight seconds to load has already failed the sixty-second break &mdash; you've spent an eighth of your time watching a spinner. Everything on this list is built to appear in about a second, including on connections and devices that most modern web games simply assume nobody has any more. That constraint shapes the design: no large asset downloads, no video, no heavy frameworks.</p>
+  </div>
+
+  <div class="playbar">
+    <p>All ten are on the home page, sorted into Games, Puzzles and Quizzes. No sign-up, no download.</p>
+    <a href="index.html#games" class="btn">Browse all games &rarr;</a>
+  </div>
+
+  <div class="related">
+    <h2>More guides to read</h2>
+    <div class="cards">
+    <a class="card" href="guides.html"><span class="ic">📚</span><h3>All Guides</h3><p>Strategy guides for every game on the site.</p><span class="meta">READ GUIDE</span></a>
+    <a class="card" href="guide-snake.html"><span class="ic">🐍</span><h3>Snake</h3><p>The strategy that gets you past 100 points.</p><span class="meta">READ GUIDE</span></a>
+    <a class="card" href="guide-2048.html"><span class="ic">🔀</span><h3>2048</h3><p>Why most runs stall at 512.</p><span class="meta">READ GUIDE</span></a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="index.html" class="logo">
+        <span class="bite-badge"><span class="bite-shape"></span></span>
+        Game<span class="zone" style="color:var(--coral);">Bite</span>Zone
+      </a>
+      <p style="max-width:280px; margin-top:14px; opacity:0.6; font-size:14.5px;">
+        Small games. Big fun. Built for everyone, everywhere &mdash; especially where the internet is slow and every megabyte counts.
+      </p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>PLAY</h4>
+        <a href="index.html#games">Games</a>
+        <a href="index.html#games">Puzzles</a>
+        <a href="index.html#games">Quizzes</a>
+      </div>
+      <div class="footer-col">
+        <h4>READ</h4>
+        <a href="guides.html">All Guides</a>
+        <a href="guide-snake.html">Snake Guide</a>
+        <a href="guide-2048.html">2048 Guide</a>
+        <a href="fast-loading-games.html">Fast Games List</a>
+      </div>
+      <div class="footer-col">
+        <h4>SITE</h4>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Contact</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 GameBiteZone. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

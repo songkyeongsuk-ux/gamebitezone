@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GameBiteZone — Bite-Sized Fun for Everyone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --coral: #FF6B4A;
+    --coral-dark: #E5502F;
+    --purple: #4A3F6B;
+    --cream: #FFF8F2;
+    --cream-deep: #FBEEE2;
+    --lime: #8BC34A;
+    --ink: #2E2A33;
+    --muted: #8A8390;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Nunito Sans', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{ font-family:'Baloo 2', sans-serif; }
+
+  /* ---------- BITE SHAPE (signature element) ---------- */
+  .bite-badge{
+    position:relative;
+    display:inline-flex;
+    width:1em; height:1em;
+  }
+  .bite-shape{
+    width:100%; height:100%;
+    border-radius:50%;
+    position:relative;
+    overflow:visible;
+  }
+  .bite-shape::after{
+    content:"";
+    position:absolute;
+    top:8%; right:-14%;
+    width:46%; height:46%;
+    border-radius:50%;
+    background:var(--cream);
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 6%;
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,248,242,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(46,42,51,0.06);
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800; font-size:22px; color:var(--ink);
+    text-decoration:none;
+  }
+  .logo .bite-badge{
+    width:34px; height:34px; font-size:34px;
+  }
+  .logo .bite-shape{ background:var(--coral); }
+  .logo span.zone{ color:var(--coral-dark); }
+  .nav-links{ display:flex; gap:32px; list-style:none; font-weight:700; font-size:15px; }
+  .nav-links a{ color:var(--ink); text-decoration:none; opacity:0.75; transition:opacity .15s; }
+  .nav-links a:hover{ opacity:1; }
+  .nav-cta{
+    background:var(--coral); color:#fff; font-weight:800;
+    padding:11px 22px; border-radius:999px; text-decoration:none;
+    font-size:14.5px; box-shadow:0 4px 14px rgba(255,107,74,0.35);
+  }
+  @media (max-width: 760px){ .nav-links{ display:none; } }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:90px 6% 70px;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:40px;
+    align-items:center;
+    max-width:1280px; margin:0 auto;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-weight:800; font-size:13px; letter-spacing:0.5px;
+    color:var(--coral-dark);
+    background:rgba(255,107,74,0.1);
+    padding:8px 16px; border-radius:999px;
+    margin-bottom:22px;
+  }
+  .hero h1{
+    font-size:clamp(38px, 5vw, 62px);
+    line-height:1.08;
+    font-weight:800;
+    color:var(--ink);
+    margin-bottom:22px;
+  }
+  .hero h1 .accent{ color:var(--coral); position:relative; }
+  .hero p.lede{
+    font-size:19px; color:var(--muted); max-width:480px; margin-bottom:34px;
+    font-weight:600;
+  }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn-primary{
+    background:var(--coral); color:#fff; font-weight:800; font-size:16px;
+    padding:16px 30px; border-radius:999px; text-decoration:none;
+    box-shadow:0 8px 20px rgba(255,107,74,0.35);
+    display:inline-flex; align-items:center; gap:10px;
+    transition:transform .15s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); }
+  .btn-secondary{
+    background:transparent; color:var(--ink); font-weight:800; font-size:16px;
+    padding:16px 26px; border-radius:999px; text-decoration:none;
+    border:2px solid rgba(46,42,51,0.15);
+  }
+
+  /* Hero visual: cluster of bite-shape tiles */
+  .hero-visual{
+    position:relative;
+    height:420px;
+  }
+  .tile{
+    position:absolute;
+    border-radius:28px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:42px;
+    box-shadow:0 16px 32px rgba(74,63,107,0.18);
+  }
+  .tile-1{ width:190px; height:190px; background:var(--coral); top:10px; left:40px; transform:rotate(-6deg); }
+  .tile-2{ width:150px; height:150px; background:var(--purple); top:190px; left:0; transform:rotate(8deg); }
+  .tile-3{ width:170px; height:170px; background:var(--lime); top:60px; right:0; transform:rotate(5deg); }
+  .tile-4{ width:130px; height:130px; background:#FFD166; bottom:10px; right:60px; transform:rotate(-10deg); }
+  .tile::after{
+    content:"";
+    position:absolute;
+    width:34%; height:34%;
+    border-radius:50%;
+    background:var(--cream);
+    top:6%; right:-10%;
+  }
+  @media (max-width: 900px){
+    .hero{ grid-template-columns:1fr; }
+    .hero-visual{ height:280px; }
+    .tile-1{ width:130px; height:130px; }
+    .tile-2{ width:100px; height:100px; }
+    .tile-3{ width:110px; height:110px; }
+    .tile-4{ width:90px; height:90px; }
+  }
+
+  /* ---------- WAVE / BITE DIVIDER ---------- */
+  .bite-divider{
+    display:flex; justify-content:center; gap:18px;
+    padding:0 0 10px;
+  }
+  .bite-divider .bite-badge{ width:20px; height:20px; font-size:20px; opacity:0.5; }
+  .bite-divider .bite-shape{ background:var(--purple); }
+
+  /* ---------- CATEGORIES ---------- */
+  .section{ padding:70px 6%; max-width:1280px; margin:0 auto; }
+  .section-head{ text-align:center; max-width:600px; margin:0 auto 50px; }
+  .section-head .eyebrow{ margin-bottom:14px; }
+  .section-head h2{ font-size:clamp(30px,4vw,42px); font-weight:800; margin-bottom:14px; }
+  .section-head p{ color:var(--muted); font-size:17px; font-weight:600; }
+
+  .cat-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:26px;
+  }
+  @media (max-width: 820px){ .cat-grid{ grid-template-columns:1fr; } }
+  .cat-card{
+    background:#fff;
+    border-radius:26px;
+    padding:36px 30px;
+    text-align:left;
+    box-shadow:0 10px 30px rgba(74,63,107,0.08);
+    position:relative;
+    overflow:hidden;
+    transition:transform .18s ease;
+  }
+  .cat-card:hover{ transform:translateY(-6px); }
+  .cat-icon{
+    width:64px; height:64px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:30px; margin-bottom:22px;
+    position:relative;
+  }
+  .cat-icon::after{
+    content:""; position:absolute; width:36%; height:36%; border-radius:50%;
+    background:#fff; top:8%; right:-8%;
+  }
+  .cat-card.games .cat-icon{ background:var(--coral); }
+  .cat-card.puzzles .cat-icon{ background:var(--purple); }
+  .cat-card.quizzes .cat-icon{ background:var(--lime); }
+  .cat-card h3{ font-size:22px; margin-bottom:10px; }
+  .cat-card p{ color:var(--muted); font-size:15px; font-weight:600; margin-bottom:20px; }
+  .cat-card .cat-tag{
+    display:inline-block; font-size:12.5px; font-weight:800;
+    padding:6px 14px; border-radius:999px;
+    background:var(--cream-deep); color:var(--coral-dark);
+  }
+
+  /* ---------- FEATURED GRID ---------- */
+  .game-grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:20px;
+  }
+  @media (max-width: 900px){ .game-grid{ grid-template-columns:repeat(2, 1fr); } }
+  .game-tabs{
+    display:flex; gap:10px; justify-content:center; margin-bottom:30px;
+  }
+  .game-tab{
+    border:none; cursor:pointer; font-weight:800; font-size:15px;
+    padding:12px 24px; border-radius:999px; font-family:'Baloo 2';
+    background:#fff; color:var(--muted);
+    box-shadow:0 4px 14px rgba(74,63,107,0.08);
+  }
+  .game-tab.active{ background:var(--purple); color:#fff; }
+  .game-tile{
+    aspect-ratio:1;
+    border-radius:22px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px;
+    font-weight:800; font-size:14px;
+    color:#fff;
+    position:relative;
+    cursor:pointer;
+    transition:transform .15s ease;
+  }
+  .game-tile:active{ transform:scale(0.96); }
+  .game-tile span.icon{ font-size:34px; }
+  .game-tile.soon{
+    background:repeating-linear-gradient(135deg, #EFE6DC, #EFE6DC 10px, #E9DED2 10px, #E9DED2 20px);
+    color:var(--muted);
+  }
+  .game-tile.soon::before{
+    content:"Soon";
+    position:absolute; top:10px; right:10px;
+    font-size:10.5px; font-weight:800;
+    background:rgba(46,42,51,0.12); color:var(--muted);
+    padding:4px 9px; border-radius:999px;
+  }
+  .g1{ background:var(--coral); }
+  .g2{ background:var(--purple); }
+  .g3{ background:var(--lime); }
+  .g4{ background:#FFD166; color:var(--ink); }
+  .g5{ background:#5FB0C7; }
+  .g6{ background:#E86A9A; }
+  .g7{ background:#8A7FE0; }
+
+  /* ---------- STAT STRIP ---------- */
+  .stat-strip{
+    background:var(--purple);
+    border-radius:32px;
+    padding:50px 6%;
+    display:flex; justify-content:space-around; flex-wrap:wrap; gap:30px;
+    max-width:1280px; margin:0 auto 90px;
+    color:#fff;
+  }
+  .stat{ text-align:center; }
+  .stat b{ display:block; font-family:'Baloo 2'; font-size:38px; font-weight:800; }
+  .stat span{ font-size:14px; opacity:0.75; font-weight:700; }
+
+  /* ---------- TOAST ---------- */
+  .toast{
+    position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--ink); color:#fff; font-weight:700; font-size:14px;
+    padding:14px 24px; border-radius:999px;
+    opacity:0; pointer-events:none; transition:all .25s ease;
+    z-index:200;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* ---------- GAME OVERLAY ---------- */
+  .game-overlay{
+    position:fixed; inset:0; z-index:150;
+    background:var(--cream);
+    display:none;
+    flex-direction:column;
+    align-items:center;
+  }
+  .game-overlay.active{ display:flex; }
+  .game-overlay-bar{
+    width:100%; max-width:640px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 6px;
+  }
+  .game-back{
+    display:inline-flex; align-items:center; gap:8px;
+    background:#fff; border:none; border-radius:999px;
+    padding:11px 20px 11px 14px; font-weight:800; font-size:14.5px; color:var(--ink);
+    box-shadow:0 4px 14px rgba(46,42,51,0.08);
+    cursor:pointer;
+  }
+  .game-back .bite-badge{ width:22px; height:22px; font-size:22px; }
+  .game-back .bite-shape{ background:var(--coral); }
+  .game-title{ font-family:'Baloo 2'; font-weight:800; font-size:19px; }
+  .game-stage{
+    width:100%; max-width:640px; flex:1;
+    display:flex; align-items:center; justify-content:center;
+    padding:10px 6px 40px;
+  }
+
+  /* Reaction game */
+  .reaction-box{
+    width:100%; aspect-ratio:1/0.85;
+    border-radius:32px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:#fff; font-family:'Baloo 2'; font-weight:800;
+    cursor:pointer; text-align:center; padding:20px;
+    background:var(--purple);
+    box-shadow:0 16px 40px rgba(74,63,107,0.25);
+    user-select:none;
+  }
+  .reaction-box.ready{ background:var(--coral-dark); }
+  .reaction-box.go{ background:var(--lime); }
+  .reaction-box .big{ font-size:clamp(24px,6vw,34px); margin-bottom:10px; }
+  .reaction-box .small{ font-size:15px; font-weight:600; font-family:'Nunito Sans'; opacity:0.85; }
+  .reaction-best{ margin-top:20px; text-align:center; font-weight:800; color:var(--muted); font-size:14px; }
+
+  /* Memory game */
+  .memory-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;
+    width:100%;
+  }
+  .memory-card{
+    aspect-ratio:1; border-radius:16px;
+    background:var(--purple);
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px; cursor:pointer;
+    box-shadow:0 8px 18px rgba(74,63,107,0.18);
+    transition:transform .15s ease;
+  }
+  .memory-card.flipped, .memory-card.matched{ background:#fff; }
+  .memory-card.matched{ opacity:0.4; cursor:default; }
+  .memory-hud{
+    display:flex; justify-content:space-between; width:100%;
+    font-weight:800; font-size:14px; color:var(--muted); margin-bottom:14px;
+  }
+  .memory-win{
+    text-align:center; font-family:'Baloo 2'; font-weight:800; font-size:20px;
+    color:var(--coral-dark); margin-top:16px;
+  }
+
+  /* ---------- SHARED GAME UI ---------- */
+  .g-hud{
+    display:flex; justify-content:space-between; width:100%;
+    font-weight:800; font-size:14px; color:var(--muted); margin-bottom:14px;
+  }
+  .g-canvas-wrap{
+    width:100%; border-radius:24px; overflow:hidden;
+    box-shadow:0 16px 40px rgba(74,63,107,0.2);
+    background:#fff; touch-action:none;
+  }
+  .g-canvas-wrap canvas{ display:block; width:100%; height:auto; }
+  .g-btn{
+    background:var(--coral); color:#fff; font-weight:800; font-family:'Baloo 2';
+    border:none; border-radius:999px; padding:14px 26px; font-size:15px;
+    cursor:pointer; margin-top:16px; box-shadow:0 8px 18px rgba(255,107,74,0.3);
+  }
+  .g-msg{ text-align:center; font-family:'Baloo 2'; font-weight:800; font-size:19px; margin-top:12px; color:var(--ink); }
+  .g-controls{ display:flex; justify-content:center; gap:12px; margin-top:16px; }
+  .g-key{
+    width:56px; height:56px; border-radius:16px; border:none;
+    background:#fff; box-shadow:0 6px 14px rgba(74,63,107,0.12);
+    font-size:22px; cursor:pointer;
+  }
+  .g-grid-wrap{ display:grid; gap:8px; width:100%; }
+  .g-cell{
+    aspect-ratio:1; border-radius:14px; display:flex; align-items:center; justify-content:center;
+    font-size:22px; font-weight:800; cursor:pointer; user-select:none;
+  }
+  .g-colorpad{
+    aspect-ratio:1; border-radius:20px; cursor:pointer; opacity:0.55; transition:opacity .1s;
+  }
+  .g-colorpad.lit{ opacity:1; }
+
+  /* ---------- QUIZ UI ---------- */
+  .quiz-wrap{ width:100%; max-width:480px; }
+  .quiz-progress{
+    font-weight:800; font-size:13px; color:var(--muted); text-align:center; margin-bottom:14px;
+  }
+  .quiz-q{
+    font-family:'Baloo 2'; font-weight:800; font-size:20px; text-align:center;
+    color:var(--ink); margin-bottom:22px; line-height:1.4;
+  }
+  .quiz-opts{ display:flex; flex-direction:column; gap:12px; }
+  .quiz-opt{
+    background:#fff; border:2px solid rgba(74,63,107,0.12); border-radius:16px;
+    padding:16px 18px; font-size:15px; font-weight:700; color:var(--ink);
+    cursor:pointer; text-align:left; box-shadow:0 4px 12px rgba(74,63,107,0.06);
+    transition:border-color .15s, transform .1s;
+  }
+  .quiz-opt:hover{ border-color:var(--coral); }
+  .quiz-opt:active{ transform:scale(0.98); }
+  .quiz-opt.correct{ border-color:var(--lime); background:rgba(163,209,94,0.12); }
+  .quiz-opt.wrong{ border-color:#E5502F; background:rgba(229,80,47,0.08); }
+  .quiz-result{
+    text-align:center;
+  }
+  .quiz-result-emoji{ font-size:56px; margin-bottom:10px; }
+  .quiz-result-title{ font-family:'Baloo 2'; font-weight:800; font-size:24px; color:var(--coral-dark); margin-bottom:10px; }
+  .quiz-result-desc{ font-size:15px; color:var(--muted); line-height:1.6; margin-bottom:20px; }
+  footer{
+    background:var(--ink);
+    color:#fff;
+    padding:60px 6% 30px;
+  }
+  .footer-top{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:40px;
+    max-width:1280px; margin:0 auto 40px;
+  }
+  footer .logo{ color:#fff; }
+  .footer-cols{ display:flex; gap:60px; flex-wrap:wrap; }
+  .footer-col h4{ font-size:14px; margin-bottom:14px; opacity:0.6; letter-spacing:0.5px; }
+  .footer-col a{ display:block; color:#fff; text-decoration:none; font-size:14.5px; margin-bottom:10px; opacity:0.85; }
+  .footer-bottom{
+    text-align:center; font-size:13px; opacity:0.5; padding-top:24px;
+    border-top:1px solid rgba(255,255,255,0.1);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">
+    <span class="bite-badge"><span class="bite-shape"></span></span>
+    Game<span class="zone">Bite</span>Zone
+  </a>
+  <ul class="nav-links">
+    <li><a href="#games" onclick="showGameTab('tabGames')">Games</a></li>
+    <li><a href="#games" onclick="showGameTab('tabPuzzles')">Puzzles</a></li>
+    <li><a href="#games" onclick="showGameTab('tabQuizzes')">Quizzes</a></li>
+    <li><a href="guides.html">Guides</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a href="#games" class="nav-cta">Play Now</a>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">🍊 No downloads. No waiting. Just play.</div>
+    <h1>Bite-sized fun<br>for <span class="accent">everyone</span>, everywhere.</h1>
+    <p class="lede">Fast-loading games, playful quizzes, and tricky puzzles you can enjoy in a minute — even on a slow connection.</p>
+    <div class="hero-ctas">
+      <a href="#games" class="btn-primary">🎮 Start Playing</a>
+      <a href="#about" class="btn-secondary">What is GameBiteZone?</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="tile tile-1">🎮</div>
+    <div class="tile tile-2">🧩</div>
+    <div class="tile tile-3">🧠</div>
+    <div class="tile tile-4">⚡</div>
+  </div>
+</section>
+
+<div class="bite-divider">
+  <span class="bite-badge"><span class="bite-shape"></span></span>
+  <span class="bite-badge"><span class="bite-shape"></span></span>
+  <span class="bite-badge"><span class="bite-shape"></span></span>
+</div>
+
+<section class="section">
+  <div class="section-head">
+    <div class="eyebrow">Three ways to play</div>
+    <h2>Something new to try, every time</h2>
+    <p>Every corner of GameBiteZone is built to load fast and play instantly — no matter where in the world you are.</p>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card games">
+      <div class="cat-icon">🎮</div>
+      <h3>Games</h3>
+      <p>Quick reflex games, clickers, and arcade classics you can pick up in seconds.</p>
+      <span class="cat-tag">120+ games</span>
+    </div>
+    <div class="cat-card puzzles">
+      <div class="cat-icon">🧩</div>
+      <h3>Puzzles</h3>
+      <p>Hidden object hunts, matching puzzles, and mazes to sharpen your eye.</p>
+      <span class="cat-tag">40+ puzzles</span>
+    </div>
+    <div class="cat-card quizzes">
+      <div class="cat-icon">🧠</div>
+      <h3>Quizzes</h3>
+      <p>Personality tests and quick quizzes to discover something new about you.</p>
+      <span class="cat-tag">10+ quizzes</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="games">
+  <div class="section-head">
+    <div class="eyebrow">20 games and counting</div>
+    <h2>Popular right now</h2>
+    <p>The community's current favorites — updated every week.</p>
+  </div>
+
+  <div class="game-tabs">
+    <button class="game-tab active" data-tab="tabGames" onclick="showGameTab('tabGames')">🎮 Games</button>
+    <button class="game-tab" data-tab="tabPuzzles" onclick="showGameTab('tabPuzzles')">🧩 Puzzles</button>
+    <button class="game-tab" data-tab="tabQuizzes" onclick="showGameTab('tabQuizzes')">🧠 Quizzes</button>
+  </div>
+
+  <div class="game-grid" id="tabGames">
+    <div class="game-tile g1" onclick="openGame('reaction')"><span class="icon">⚡</span>Reaction Test</div>
+    <div class="game-tile g2" onclick="openGame('memory')"><span class="icon">🃏</span>Memory Flip</div>
+    <div class="game-tile g3" onclick="openGame('whack')"><span class="icon">🔨</span>Whack-a-Mole</div>
+    <div class="game-tile g4" onclick="openGame('simon')"><span class="icon">🎵</span>Simon Says</div>
+    <div class="game-tile g5" onclick="openGame('ttt')"><span class="icon">❌</span>Tic-Tac-Toe</div>
+    <div class="game-tile g6" onclick="openGame('rps')"><span class="icon">✂️</span>Rock Paper Scissors</div>
+    <div class="game-tile g7" onclick="openGame('snake')"><span class="icon">🐍</span>Snake</div>
+    <div class="game-tile g1" onclick="openGame('pong')"><span class="icon">🏓</span>Ping Pong</div>
+    <div class="game-tile g2" onclick="openGame('flappy')"><span class="icon">🐤</span>Flappy Tap</div>
+    <div class="game-tile g3" onclick="openGame('dice')"><span class="icon">🎲</span>Dice Guess</div>
+  </div>
+
+  <div class="game-grid" id="tabPuzzles" style="display:none;">
+    <div class="game-tile g4" onclick="openGame('hidden')"><span class="icon">🔍</span>Hidden Object</div>
+    <div class="game-tile g5" onclick="openGame('tetris')"><span class="icon">🧱</span>Tetris</div>
+    <div class="game-tile g6" onclick="openGame('maze')"><span class="icon">🧵</span>Maze Runner</div>
+    <div class="game-tile g7" onclick="openGame('breakout')"><span class="icon">🧨</span>Brick Breakout</div>
+    <div class="game-tile g1" onclick="openGame('sliding')"><span class="icon">🔢</span>Sliding Puzzle</div>
+    <div class="game-tile g2" onclick="openGame('merge2048')"><span class="icon">🔀</span>2048</div>
+    <div class="game-tile g3" onclick="openGame('numrush')"><span class="icon">🏁</span>Number Rush</div>
+    <div class="game-tile g4" onclick="openGame('bubble')"><span class="icon">🫧</span>Bubble Pop</div>
+    <div class="game-tile g5" onclick="openGame('colormatch')"><span class="icon">🎯</span>Color Match</div>
+    <div class="game-tile g6" onclick="openGame('timing')"><span class="icon">🎡</span>Timing Tap</div>
+  </div>
+
+  <div class="game-grid" id="tabQuizzes" style="display:none;">
+    <div class="game-tile g1" onclick="openQuiz('snack')"><span class="icon">🍕</span>Which Snack Are You?</div>
+    <div class="game-tile g2" onclick="openQuiz('weekend')"><span class="icon">🌤️</span>Your Weekend Vibe</div>
+    <div class="game-tile g3" onclick="openQuiz('animal')"><span class="icon">🐾</span>Your Animal Match</div>
+    <div class="game-tile g4" onclick="openQuiz('season')"><span class="icon">🍂</span>Which Season Are You?</div>
+    <div class="game-tile g5" onclick="openQuiz('gamer')"><span class="icon">🕹️</span>Your Gamer Type</div>
+    <div class="game-tile g6" onclick="openQuiz('flags')"><span class="icon">🚩</span>Guess the Flag</div>
+    <div class="game-tile g7" onclick="openQuiz('capitals')"><span class="icon">🌍</span>Guess the Capital</div>
+    <div class="game-tile g1" onclick="openQuiz('emoji')"><span class="icon">😀</span>Emoji Movie Guess</div>
+    <div class="game-tile g2" onclick="openQuiz('trivia')"><span class="icon">💡</span>General Knowledge</div>
+    <div class="game-tile g3" onclick="openQuiz('math')"><span class="icon">🔢</span>Math Speed Quiz</div>
+  </div>
+</section>
+
+<div class="stat-strip">
+  <div class="stat"><b>180+</b><span>Bite-Sized Games</span></div>
+  <div class="stat"><b>0.8s</b><span>Avg. Load Time</span></div>
+  <div class="stat"><b>12</b><span>Languages</span></div>
+  <div class="stat"><b>Free</b><span>Forever, No Sign-Up</span></div>
+</div>
+
+<section style="max-width:1100px; margin:0 auto; padding:70px 6% 20px;">
+  <div style="text-align:center; margin-bottom:36px;">
+    <div style="display:inline-flex; align-items:center; gap:8px; font-weight:800; font-size:13px; letter-spacing:0.5px; color:var(--coral-dark); background:rgba(255,107,74,0.1); padding:8px 16px; border-radius:999px; margin-bottom:16px;">📚 Guides &amp; Strategy</div>
+    <h2 style="font-size:clamp(26px,3.4vw,36px); margin-bottom:12px;">Get better at the games you already play</h2>
+    <p style="color:var(--muted); font-size:16.5px; max-width:600px; margin:0 auto;">Short, practical write-ups on how the scoring works, which habits actually matter, and where most players go wrong.</p>
+  </div>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:18px;">
+    <a href="guide-snake.html" style="background:#fff; border:1px solid rgba(74,63,107,0.09); border-radius:16px; padding:24px; text-decoration:none; color:var(--ink); display:block;">
+      <span style="font-size:26px; display:block; margin-bottom:10px;">🐍</span>
+      <h3 style="font-size:17.5px; margin-bottom:7px;">How to Survive Past 100 in Snake</h3>
+      <p style="font-size:14.5px; color:var(--muted); line-height:1.6;">Why nearly every run ends the same way, and the perimeter habit that changes it.</p>
+      <span style="display:block; margin-top:14px; font-size:12.5px; font-weight:800; color:var(--coral-dark); letter-spacing:0.5px;">READ GUIDE →</span>
+    </a>
+    <a href="guide-2048.html" style="background:#fff; border:1px solid rgba(74,63,107,0.09); border-radius:16px; padding:24px; text-decoration:none; color:var(--ink); display:block;">
+      <span style="font-size:26px; display:block; margin-bottom:10px;">🔀</span>
+      <h3 style="font-size:17.5px; margin-bottom:7px;">2048: Why the Corner Method Works</h3>
+      <p style="font-size:14.5px; color:var(--muted); line-height:1.6;">Most players stall at 512 and blame luck. Usually it's the fourth direction.</p>
+      <span style="display:block; margin-top:14px; font-size:12.5px; font-weight:800; color:var(--coral-dark); letter-spacing:0.5px;">READ GUIDE →</span>
+    </a>
+    <a href="guide-reaction-test.html" style="background:#fff; border:1px solid rgba(74,63,107,0.09); border-radius:16px; padding:24px; text-decoration:none; color:var(--ink); display:block;">
+      <span style="font-size:26px; display:block; margin-bottom:10px;">⚡</span>
+      <h3 style="font-size:17.5px; margin-bottom:7px;">What Your Reaction Time Really Means</h3>
+      <p style="font-size:14.5px; color:var(--muted); line-height:1.6;">You clicked at 240ms. Here's what's inside that number — and what's inflating it.</p>
+      <span style="display:block; margin-top:14px; font-size:12.5px; font-weight:800; color:var(--coral-dark); letter-spacing:0.5px;">READ GUIDE →</span>
+    </a>
+    <a href="fast-loading-games.html" style="background:#fff; border:1px solid rgba(74,63,107,0.09); border-radius:16px; padding:24px; text-decoration:none; color:var(--ink); display:block;">
+      <span style="font-size:26px; display:block; margin-bottom:10px;">⏱️</span>
+      <h3 style="font-size:17.5px; margin-bottom:7px;">10 Games You Can Play in Under a Minute</h3>
+      <p style="font-size:14.5px; color:var(--muted); line-height:1.6;">Ten that load in about a second and finish before your coffee gets cold.</p>
+      <span style="display:block; margin-top:14px; font-size:12.5px; font-weight:800; color:var(--coral-dark); letter-spacing:0.5px;">READ FEATURE →</span>
+    </a>
+  </div>
+
+  <div style="text-align:center; margin-top:32px;">
+    <a href="guides.html" style="display:inline-block; background:var(--coral); color:#fff; font-weight:800; padding:14px 32px; border-radius:999px; text-decoration:none; font-size:15.5px; box-shadow:0 4px 14px rgba(255,107,74,0.3);">Browse all guides →</a>
+  </div>
+</section>
+
+<footer id="about">
+  <div class="footer-top">
+    <div>
+      <a href="#" class="logo">
+        <span class="bite-badge"><span class="bite-shape"></span></span>
+        Game<span class="zone" style="color:var(--coral);">Bite</span>Zone
+      </a>
+      <p style="max-width:280px; margin-top:14px; opacity:0.6; font-size:14.5px;">
+        Small games. Big fun. Built for everyone, everywhere — especially where the internet is slow and every megabyte counts.
+      </p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>PLAY</h4>
+        <a href="#games" onclick="showGameTab('tabGames')">Games</a>
+        <a href="#games" onclick="showGameTab('tabPuzzles')">Puzzles</a>
+        <a href="#games" onclick="showGameTab('tabQuizzes')">Quizzes</a>
+      </div>
+      <div class="footer-col">
+        <h4>READ</h4>
+        <a href="guides.html">All Guides</a>
+        <a href="guide-snake.html">Snake Guide</a>
+        <a href="guide-2048.html">2048 Guide</a>
+        <a href="fast-loading-games.html">Fast Games List</a>
+      </div>
+      <div class="footer-col">
+        <h4>SITE</h4>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Contact</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 GameBiteZone. All rights reserved.</div>
+</footer>
+
+<div class="toast" id="toast">More games coming soon 🍊</div>
+
+<div class="game-overlay" id="gameOverlay">
+  <div class="game-overlay-bar">
+    <button class="game-back" onclick="closeGame()">
+      <span class="bite-badge"><span class="bite-shape"></span></span> Back
+    </button>
+    <div class="game-title" id="gameTitle">Game</div>
+    <div style="width:70px;"></div>
+  </div>
+  <div class="game-stage" id="gameStage"></div>
+</div>
+
+<script>
+  // ---------- Toast ----------
+  function toast(){
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  // ---------- Overlay control ----------
+  function openGame(name){
+    document.getElementById('gameOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    const starters = {
+      reaction: startReaction, memory: startMemory, whack: startWhack,
+      simon: startSimon, ttt: startTTT, rps: startRPS, snake: startSnake,
+      pong: startPong, flappy: startFlappy, dice: startDice,
+      hidden: startHidden, tetris: startTetris, maze: startMaze,
+      breakout: startBreakout, sliding: startSliding, merge2048: start2048,
+      numrush: startNumRush, bubble: startBubble, colormatch: startColorMatch,
+      timing: startTiming
+    };
+    if (starters[name]) starters[name]();
+  }
+  function showGameTab(id){
+    document.querySelectorAll('.game-tab').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.game-tab[data-tab="${id}"]`).classList.add('active');
+    document.getElementById('tabGames').style.display = id === 'tabGames' ? 'grid' : 'none';
+    document.getElementById('tabPuzzles').style.display = id === 'tabPuzzles' ? 'grid' : 'none';
+    document.getElementById('tabQuizzes').style.display = id === 'tabQuizzes' ? 'grid' : 'none';
+  }
+  function closeGame(){
+    document.getElementById('gameOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+    if (window._gameCleanup) { try { window._gameCleanup(); } catch(e){} window._gameCleanup = null; }
+    document.getElementById('gameStage').innerHTML = '';
+    clearTimeout(window._reactionTimer);
+  }
+
+  // ---------- Reaction Test ----------
+  function startReaction(){
+    document.getElementById('gameTitle').textContent = '⚡ Reaction Test';
+    const best = localStorage.getItem('gbz_reaction_best');
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="reaction-box" id="reactionBox">
+          <div class="big" id="reactionMsg">Tap to Start</div>
+          <div class="small" id="reactionSub">Wait for green, then tap as fast as you can</div>
+        </div>
+        <div class="reaction-best" id="reactionBest">${best ? 'Best: ' + best + 'ms' : 'No best score yet'}</div>
+      </div>`;
+    const box = document.getElementById('reactionBox');
+    let state = 'idle'; // idle -> waiting -> go -> done
+    let startTime = 0;
+
+    box.onclick = () => {
+      if (state === 'idle' || state === 'done'){
+        state = 'waiting';
+        box.className = 'reaction-box ready';
+        document.getElementById('reactionMsg').textContent = 'Wait for it...';
+        document.getElementById('reactionSub').textContent = "Don't tap yet!";
+        const delay = 1200 + Math.random() * 2000;
+        window._reactionTimer = setTimeout(() => {
+          state = 'go';
+          startTime = performance.now();
+          box.className = 'reaction-box go';
+          document.getElementById('reactionMsg').textContent = 'TAP NOW!';
+          document.getElementById('reactionSub').textContent = '';
+        }, delay);
+      } else if (state === 'waiting'){
+        clearTimeout(window._reactionTimer);
+        state = 'done';
+        box.className = 'reaction-box';
+        document.getElementById('reactionMsg').textContent = 'Too soon! 😅';
+        document.getElementById('reactionSub').textContent = 'Tap to try again';
+      } else if (state === 'go'){
+        const time = Math.round(performance.now() - startTime);
+        state = 'done';
+        box.className = 'reaction-box';
+        document.getElementById('reactionMsg').textContent = time + 'ms';
+        document.getElementById('reactionSub').textContent = 'Tap to try again';
+        const best = localStorage.getItem('gbz_reaction_best');
+        if (!best || time < parseInt(best)){
+          localStorage.setItem('gbz_reaction_best', time);
+          document.getElementById('reactionBest').textContent = 'New best: ' + time + 'ms 🎉';
+        }
+      }
+    };
+  }
+
+  // ---------- Memory Flip ----------
+  function startMemory(level){
+    level = level || 1;
+    document.getElementById('gameTitle').textContent = '🃏 Memory Flip · Level ' + level;
+    const allEmojis = ['🍊','🎮','🧩','⚡','🍉','🎯','🍇','🍓','🍑','🎲','🎵','🐤'];
+    const pairCount = Math.min(4 + level, allEmojis.length);
+    const emojis = allEmojis.slice(0, pairCount);
+    const gridCols = pairCount <= 6 ? 4 : pairCount <= 9 ? 5 : 6;
+    let deck = [...emojis, ...emojis]
+      .map(e => ({ e, id: Math.random() }))
+      .sort(() => Math.random() - 0.5);
+
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="memory-hud">
+          <span id="memMoves">Moves: 0</span>
+          <span id="memPairs">Pairs: 0 / ${emojis.length}</span>
+        </div>
+        <div class="memory-grid" id="memGrid" style="grid-template-columns:repeat(${gridCols},1fr);"></div>
+        <div class="memory-win" id="memWin"></div>
+      </div>`;
+
+    const grid = document.getElementById('memGrid');
+    let moves = 0, pairs = 0, flipped = [], lock = false;
+
+    deck.forEach((card, i) => {
+      const el = document.createElement('div');
+      el.className = 'memory-card';
+      el.dataset.index = i;
+      el.dataset.emoji = card.e;
+      el.textContent = '';
+      el.onclick = () => handleFlip(el, card.e, i);
+      grid.appendChild(el);
+    });
+
+    function handleFlip(el, emoji, index){
+      if (lock || el.classList.contains('flipped') || el.classList.contains('matched')) return;
+      el.classList.add('flipped');
+      el.textContent = emoji;
+      flipped.push({ el, emoji, index });
+
+      if (flipped.length === 2){
+        moves++;
+        document.getElementById('memMoves').textContent = 'Moves: ' + moves;
+        lock = true;
+        const [a, b] = flipped;
+        if (a.emoji === b.emoji && a.index !== b.index){
+          setTimeout(() => {
+            a.el.classList.add('matched');
+            b.el.classList.add('matched');
+            pairs++;
+            document.getElementById('memPairs').textContent = 'Pairs: ' + pairs + ' / ' + emojis.length;
+            flipped = [];
+            lock = false;
+            if (pairs === emojis.length){
+              const cleared = pairCount >= allEmojis.length;
+              document.getElementById('memWin').innerHTML = cleared
+                ? `🎉 Max level cleared in ${moves} moves!`
+                : `🎉 Solved in ${moves} moves! <button class="g-btn" style="margin-top:10px;" onclick="startMemory(${level+1})">Next Level →</button>`;
+            }
+          }, 350);
+        } else {
+          setTimeout(() => {
+            a.el.classList.remove('flipped'); a.el.textContent = '';
+            b.el.classList.remove('flipped'); b.el.textContent = '';
+            flipped = [];
+            lock = false;
+          }, 700);
+        }
+      }
+    }
+  }
+
+  // ---------- Whack-a-Mole ----------
+  function startWhack(){
+    document.getElementById('gameTitle').textContent = '🔨 Whack-a-Mole';
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="whackScore">Score: 0</span><span id="whackTime">Time: 20s</span></div>
+        <div class="g-grid-wrap" id="whackGrid" style="grid-template-columns:repeat(3,1fr);"></div>
+      </div>`;
+    const grid = document.getElementById('whackGrid');
+    const holes = [];
+    let score = 0, timeLeft = 20, activeHole = null, speed = 700;
+    for (let i=0;i<9;i++){
+      const h = document.createElement('div');
+      h.className = 'g-cell'; h.style.background = '#EFE6DC';
+      h.onclick = () => {
+        if (h.dataset.active === '1'){
+          score++; document.getElementById('whackScore').textContent = 'Score: ' + score;
+          h.dataset.active = '0'; h.textContent = ''; h.style.background = '#EFE6DC';
+        }
+      };
+      grid.appendChild(h); holes.push(h);
+    }
+    function pop(){
+      if (activeHole){ activeHole.dataset.active='0'; activeHole.textContent=''; activeHole.style.background='#EFE6DC'; }
+      const h = holes[Math.floor(Math.random()*holes.length)];
+      h.dataset.active = '1'; h.textContent = '🐹'; h.style.background = 'var(--coral)';
+      activeHole = h;
+      speed = Math.max(320, speed - 12);
+      popInterval = setTimeout(pop, speed);
+    }
+    let popInterval = setTimeout(pop, speed);
+    const timerInterval = setInterval(() => {
+      timeLeft--;
+      document.getElementById('whackTime').textContent = 'Time: ' + timeLeft + 's';
+      if (timeLeft <= 0){
+        clearTimeout(popInterval); clearInterval(timerInterval);
+        document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">Game Over! Score: ${score} 🎉</div><button class="g-btn" onclick="startWhack()">Play Again</button>`);
+      }
+    }, 1000);
+    window._gameCleanup = () => { clearTimeout(popInterval); clearInterval(timerInterval); };
+  }
+
+  // ---------- Simon Says ----------
+  function startSimon(){
+    document.getElementById('gameTitle').textContent = '🎵 Simon Says';
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="simonLevel">Level: 0</span><span id="simonStatus">Watch...</span></div>
+        <div class="g-grid-wrap" id="simonGrid" style="grid-template-columns:repeat(2,1fr); gap:12px;"></div>
+      </div>`;
+    const colors = ['#FF6B4A','#8BC34A','#5FB0C7','#FFD166'];
+    const grid = document.getElementById('simonGrid');
+    const pads = [];
+    colors.forEach((c,i) => {
+      const p = document.createElement('div');
+      p.className = 'g-colorpad'; p.style.background = c;
+      p.onclick = () => handleClick(i);
+      grid.appendChild(p); pads.push(p);
+    });
+    let sequence = [], playerStep = 0, accepting = false;
+    function flash(i, dur=400){
+      return new Promise(resolve => {
+        pads[i].classList.add('lit');
+        setTimeout(() => { pads[i].classList.remove('lit'); resolve(); }, dur);
+      });
+    }
+    async function playSequence(){
+      accepting = false;
+      document.getElementById('simonStatus').textContent = 'Watch...';
+      await new Promise(r => setTimeout(r, 500));
+      for (const step of sequence){ await flash(step); await new Promise(r => setTimeout(r, 200)); }
+      accepting = true; playerStep = 0;
+      document.getElementById('simonStatus').textContent = 'Your turn!';
+    }
+    function nextRound(){
+      sequence.push(Math.floor(Math.random()*4));
+      document.getElementById('simonLevel').textContent = 'Level: ' + sequence.length;
+      playSequence();
+    }
+    function handleClick(i){
+      if (!accepting) return;
+      flash(i, 200);
+      if (sequence[playerStep] === i){
+        playerStep++;
+        if (playerStep === sequence.length){ accepting = false; setTimeout(nextRound, 700); }
+      } else {
+        accepting = false;
+        document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">You reached level ${sequence.length}! 🎉</div><button class="g-btn" onclick="startSimon()">Play Again</button>`);
+      }
+    }
+    nextRound();
+  }
+
+  // ---------- Tic-Tac-Toe ----------
+  function startTTT(){
+    document.getElementById('gameTitle').textContent = '❌ Tic-Tac-Toe';
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="tttStatus">Your turn (X)</span><span></span></div>
+        <div class="g-grid-wrap" id="tttGrid" style="grid-template-columns:repeat(3,1fr);"></div>
+      </div>`;
+    const grid = document.getElementById('tttGrid');
+    let board = Array(9).fill(null), over = false;
+    const cells = [];
+    for (let i=0;i<9;i++){
+      const c = document.createElement('div');
+      c.className = 'g-cell'; c.style.background = '#fff'; c.style.boxShadow = '0 4px 12px rgba(74,63,107,0.1)';
+      c.onclick = () => playerMove(i);
+      grid.appendChild(c); cells.push(c);
+    }
+    const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    function checkWin(b, p){ return wins.some(w => w.every(i => b[i]===p)); }
+    function render(){ cells.forEach((c,i) => c.textContent = board[i] || ''); }
+    function playerMove(i){
+      if (over || board[i]) return;
+      board[i] = 'X'; render();
+      if (checkWin(board,'X')) return endGame('You win! 🎉');
+      if (board.every(v=>v)) return endGame("It's a draw!");
+      document.getElementById('tttStatus').textContent = "Computer's turn...";
+      setTimeout(aiMove, 500);
+    }
+    function aiMove(){
+      const empty = board.map((v,i)=>v?null:i).filter(v=>v!==null);
+      const i = empty[Math.floor(Math.random()*empty.length)];
+      board[i] = 'O'; render();
+      if (checkWin(board,'O')) return endGame('Computer wins! 🤖');
+      if (board.every(v=>v)) return endGame("It's a draw!");
+      document.getElementById('tttStatus').textContent = 'Your turn (X)';
+    }
+    function endGame(msg){
+      over = true;
+      document.getElementById('tttStatus').textContent = msg;
+      document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<button class="g-btn" onclick="startTTT()">Play Again</button>`);
+    }
+  }
+
+  // ---------- Rock Paper Scissors ----------
+  function startRPS(){
+    document.getElementById('gameTitle').textContent = '✂️ Rock Paper Scissors';
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%; text-align:center;">
+        <div class="g-hud"><span id="rpsScore">You 0 - 0 CPU</span></div>
+        <div class="g-msg" id="rpsResult">Choose your move</div>
+        <div class="g-controls">
+          <button class="g-key" onclick="rpsPlay('🪨')">🪨</button>
+          <button class="g-key" onclick="rpsPlay('📄')">📄</button>
+          <button class="g-key" onclick="rpsPlay('✂️')">✂️</button>
+        </div>
+      </div>`;
+    window._rpsScore = { you:0, cpu:0 };
+  }
+  function rpsPlay(choice){
+    const opts = ['🪨','📄','✂️'];
+    const cpu = opts[Math.floor(Math.random()*3)];
+    const beats = {'🪨':'✂️','📄':'🪨','✂️':'📄'};
+    let result;
+    if (choice === cpu) result = "It's a tie!";
+    else if (beats[choice] === cpu) { result = 'You win this round!'; window._rpsScore.you++; }
+    else { result = 'CPU wins this round!'; window._rpsScore.cpu++; }
+    document.getElementById('rpsResult').textContent = `${choice} vs ${cpu} — ${result}`;
+    document.getElementById('rpsScore').textContent = `You ${window._rpsScore.you} - ${window._rpsScore.cpu} CPU`;
+  }
+
+  // ---------- Snake ----------
+  function startSnake(){
+    document.getElementById('gameTitle').textContent = '🐍 Snake';
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="snakeScore">Score: 0</span><span id="snakeLevel">Level: 1</span></div>
+        <div class="g-canvas-wrap"><canvas id="snakeCanvas" width="300" height="300"></canvas></div>
+        <div class="g-controls">
+          <button class="g-key" onclick="snakeDir(-1,0)">⬅</button>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <button class="g-key" onclick="snakeDir(0,-1)">⬆</button>
+            <button class="g-key" onclick="snakeDir(0,1)">⬇</button>
+          </div>
+          <button class="g-key" onclick="snakeDir(1,0)">➡</button>
+        </div>
+      </div>`;
+    const canvas = document.getElementById('snakeCanvas');
+    const ctx = canvas.getContext('2d');
+    const size = 15, cells = 20;
+    let snake = [{x:10,y:10}], dir = {x:1,y:0}, nextDir = {x:1,y:0}, score = 0, over = false, level = 1, speed = 140;
+    let food = spawnFood();
+    function spawnFood(){ return { x: Math.floor(Math.random()*cells), y: Math.floor(Math.random()*cells) }; }
+    window.snakeDir = (x,y) => { if (dir.x !== -x || dir.y !== -y) nextDir = {x,y}; };
+    function draw(){
+      ctx.fillStyle = '#FFF8F2'; ctx.fillRect(0,0,300,300);
+      ctx.fillStyle = '#FF6B4A'; ctx.fillRect(food.x*size, food.y*size, size-2, size-2);
+      ctx.fillStyle = '#4A3F6B';
+      snake.forEach(s => ctx.fillRect(s.x*size, s.y*size, size-2, size-2));
+    }
+    function restartLoop(){
+      clearInterval(loop);
+      loop = setInterval(tick, speed);
+    }
+    function tick(){
+      if (over) return;
+      dir = nextDir;
+      const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+      if (head.x<0||head.y<0||head.x>=cells||head.y>=cells||snake.some(s=>s.x===head.x&&s.y===head.y)){
+        over = true;
+        document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">Game Over! Score: ${score} (Level ${level}) 🎉</div><button class="g-btn" onclick="startSnake()">Play Again</button>`);
+        return;
+      }
+      snake.unshift(head);
+      if (head.x === food.x && head.y === food.y){
+        score++; document.getElementById('snakeScore').textContent = 'Score: ' + score;
+        if (score % 5 === 0){
+          level++; speed = Math.max(60, speed - 15);
+          document.getElementById('snakeLevel').textContent = 'Level: ' + level;
+          restartLoop();
+        }
+        food = spawnFood();
+      } else snake.pop();
+      draw();
+    }
+    draw();
+    let loop = setInterval(tick, speed);
+    function key(e){
+      if (e.key==='ArrowLeft') snakeDir(-1,0);
+      if (e.key==='ArrowRight') snakeDir(1,0);
+      if (e.key==='ArrowUp') snakeDir(0,-1);
+      if (e.key==='ArrowDown') snakeDir(0,1);
+    }
+    document.addEventListener('keydown', key);
+    window._gameCleanup = () => { clearInterval(loop); document.removeEventListener('keydown', key); };
+  }
+
+  // ---------- Ping Pong ----------
+  function startPong(){
+    document.getElementById('gameTitle').textContent = '🏓 Ping Pong';
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="pongScore">You 0 - 0 CPU</span><span>Drag to move</span></div>
+        <div class="g-canvas-wrap"><canvas id="pongCanvas" width="300" height="380"></canvas></div>
+      </div>`;
+    const canvas = document.getElementById('pongCanvas');
+    const ctx = canvas.getContext('2d');
+    const W=300,H=380, paddleW=60, paddleH=10;
+    let playerX = W/2-paddleW/2, cpuX = W/2-paddleW/2;
+    let ball = {x:W/2,y:H/2,vx:3,vy:3};
+    let you=0, cpu=0, over=false;
+    function pointer(e){
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const x = (clientX - rect.left) * (W/rect.width);
+      playerX = Math.min(Math.max(x - paddleW/2, 0), W-paddleW);
+    }
+    canvas.addEventListener('mousemove', pointer);
+    canvas.addEventListener('touchmove', pointer);
+    function draw(){
+      ctx.fillStyle='#FFF8F2'; ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='#4A3F6B'; ctx.fillRect(cpuX,10,paddleW,paddleH);
+      ctx.fillStyle='#FF6B4A'; ctx.fillRect(playerX,H-20,paddleW,paddleH);
+      ctx.beginPath(); ctx.arc(ball.x,ball.y,7,0,Math.PI*2); ctx.fillStyle='#8BC34A'; ctx.fill();
+    }
+    function resetBall(){ ball = {x:W/2,y:H/2,vx:baseSpeed*(Math.random()>0.5?1:-1),vy:baseSpeed*(Math.random()>0.5?1:-1)}; }
+    let baseSpeed = 3, cpuSpeed = 2.4;
+    function tick(){
+      if (over) return;
+      ball.x += ball.vx; ball.y += ball.vy;
+      if (ball.x<=6||ball.x>=W-6) ball.vx *= -1;
+      cpuX += Math.sign((ball.x-paddleW/2) - cpuX) * cpuSpeed;
+      cpuX = Math.min(Math.max(cpuX,0), W-paddleW);
+      if (ball.y<=20 && ball.x>cpuX && ball.x<cpuX+paddleW) ball.vy *= -1;
+      if (ball.y>=H-27 && ball.x>playerX && ball.x<playerX+paddleW) ball.vy *= -1.03;
+      if (ball.y < 0){ you++; baseSpeed += 0.3; cpuSpeed = Math.min(4.2, cpuSpeed+0.15); resetBall(); }
+      if (ball.y > H){ cpu++; resetBall(); }
+      document.getElementById('pongScore').textContent = `You ${you} - ${cpu} CPU · Speed Lv.${Math.min(5, Math.floor(baseSpeed-2))}`;
+      if (you>=5 || cpu>=5){
+        over = true;
+        document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">${you>=5?'You win! 🎉':'CPU wins! 🤖'}</div><button class="g-btn" onclick="startPong()">Play Again</button>`);
+      }
+      draw();
+    }
+    draw();
+    const loop = setInterval(tick, 16);
+    window._gameCleanup = () => { clearInterval(loop); canvas.removeEventListener('mousemove', pointer); canvas.removeEventListener('touchmove', pointer); };
+  }
+
+  // ---------- Flappy Tap ----------
+  function startFlappy(){
+    document.getElementById('gameTitle').textContent = '🐤 Flappy Tap';
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="flappyScore">Score: 0</span><span>Tap to flap</span></div>
+        <div class="g-canvas-wrap"><canvas id="flappyCanvas" width="300" height="400"></canvas></div>
+      </div>`;
+    const canvas = document.getElementById('flappyCanvas');
+    const ctx = canvas.getContext('2d');
+    const W=300,H=400, pipeW=44;
+    let gap = 130;
+    let bird = {x:70,y:200,vy:0};
+    let pipes = [{x:300,gapY:200}];
+    let score=0, over=false, started=false;
+    function flap(){
+      if (over) return startFlappy();
+      started = true; bird.vy = -6.5;
+    }
+    canvas.addEventListener('click', flap);
+    function touchFlap(e){ e.preventDefault(); flap(); }
+    canvas.addEventListener('touchstart', touchFlap);
+    function draw(){
+      ctx.fillStyle='#CFEFFF'; ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='#8BC34A';
+      pipes.forEach(p => {
+        ctx.fillRect(p.x,0,pipeW,p.gapY-gap/2);
+        ctx.fillRect(p.x,p.gapY+gap/2,pipeW,H-(p.gapY+gap/2));
+      });
+      ctx.fillStyle='#FFD166'; ctx.beginPath(); ctx.arc(bird.x,bird.y,12,0,Math.PI*2); ctx.fill();
+    }
+    function tick(){
+      if (!started){ draw(); return; }
+      if (over) return;
+      bird.vy += 0.35; bird.y += bird.vy;
+      pipes.forEach(p => p.x -= 2.2);
+      if (pipes[pipes.length-1].x < W-160) pipes.push({x:W, gapY: 80+Math.random()*(H-160)});
+      if (pipes[0].x < -pipeW) {
+        pipes.shift(); score++;
+        gap = Math.max(78, 130 - Math.floor(score/3)*6);
+        document.getElementById('flappyScore').textContent='Score: '+score;
+      }
+      const hitPipe = pipes.some(p => bird.x+10>p.x && bird.x-10<p.x+pipeW && (bird.y-10<p.gapY-gap/2 || bird.y+10>p.gapY+gap/2));
+      if (bird.y>H-12 || bird.y<12 || hitPipe){
+        over = true;
+        document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">Game Over! Score: ${score} 🎉</div><button class="g-btn" onclick="startFlappy()">Play Again</button>`);
+      }
+      draw();
+    }
+    draw();
+    const loop = setInterval(tick, 20);
+    window._gameCleanup = () => { clearInterval(loop); canvas.removeEventListener('click', flap); canvas.removeEventListener('touchstart', touchFlap); };
+  }
+
+  // ---------- Dice Guess ----------
+  function startDice(){
+    document.getElementById('gameTitle').textContent = '🎲 Dice Guess';
+    const stage = document.getElementById('gameStage');
+    const current = 1 + Math.floor(Math.random()*6);
+    const best = localStorage.getItem('gbz_dice_best') || 0;
+    stage.innerHTML = `
+      <div style="width:100%; text-align:center;">
+        <div class="g-hud"><span id="diceStreak">Streak: 0</span><span>Best: ${best}</span></div>
+        <div style="font-size:60px; margin:20px 0;" id="diceFace">🎲 ${current}</div>
+        <div class="g-controls">
+          <button class="g-btn" style="background:var(--purple);" onclick="diceGuess('lower')">⬇ Lower</button>
+          <button class="g-btn" onclick="diceGuess('higher')">⬆ Higher</button>
+        </div>
+        <div class="g-msg" id="diceMsg"></div>
+      </div>`;
+    window._diceState = { current, streak: 0 };
+  }
+  function diceGuess(dir){
+    const state = window._diceState;
+    const next = 1 + Math.floor(Math.random()*6);
+    const correct = (dir==='higher' && next > state.current) || (dir==='lower' && next < state.current);
+    document.getElementById('diceFace').textContent = '🎲 ' + next;
+    if (correct){
+      state.streak++;
+      document.getElementById('diceMsg').textContent = 'Correct! 🎉';
+      const best = localStorage.getItem('gbz_dice_best') || 0;
+      if (state.streak > best) localStorage.setItem('gbz_dice_best', state.streak);
+    } else if (next === state.current){
+      document.getElementById('diceMsg').textContent = 'Tie — try again!';
+    } else {
+      document.getElementById('diceMsg').textContent = 'Wrong! Streak reset.';
+      state.streak = 0;
+    }
+    state.current = next;
+    document.getElementById('diceStreak').textContent = 'Streak: ' + state.streak;
+  }
+
+  // ---------- Hidden Object ----------
+  function startHidden(){
+    document.getElementById('gameTitle').textContent = '🔍 Hidden Object';
+    const stage = document.getElementById('gameStage');
+    let round = 1, timeLeft = 30;
+    const base = '🍊', odd = ['🍋','🍉','🍇','🍓','🍑'];
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="hiddenRound">Round: 1</span><span id="hiddenTime">Time: 30s</span></div>
+        <div class="g-grid-wrap" id="hiddenGrid" style="grid-template-columns:repeat(4,1fr);"></div>
+      </div>`;
+    function newRound(){
+      const gridSize = Math.min(4 + Math.floor(round/2), 7);
+      const grid = document.getElementById('hiddenGrid');
+      grid.style.gridTemplateColumns = `repeat(${gridSize},1fr)`;
+      grid.innerHTML = '';
+      const total = gridSize*gridSize;
+      const oddIndex = Math.floor(Math.random()*total);
+      const oddEmoji = odd[Math.floor(Math.random()*odd.length)];
+      for (let i=0;i<total;i++){
+        const c = document.createElement('div');
+        c.className = 'g-cell'; c.style.background = '#fff'; c.style.fontSize = '18px';
+        c.textContent = i === oddIndex ? oddEmoji : base;
+        c.onclick = () => {
+          if (i === oddIndex){ round++; document.getElementById('hiddenRound').textContent='Round: '+round; newRound(); }
+          else endGame();
+        };
+        grid.appendChild(c);
+      }
+    }
+    function endGame(){
+      clearInterval(timerInt);
+      document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">Game Over! Reached round ${round} 🎉</div><button class="g-btn" onclick="startHidden()">Play Again</button>`);
+    }
+    const timerInt = setInterval(() => {
+      timeLeft--; document.getElementById('hiddenTime').textContent = 'Time: ' + timeLeft + 's';
+      if (timeLeft<=0) endGame();
+    }, 1000);
+    newRound();
+    window._gameCleanup = () => clearInterval(timerInt);
+  }
+
+  // ---------- Tetris ----------
+  function startTetris(){
+    document.getElementById('gameTitle').textContent = '🧱 Tetris';
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="tetrisScore">Score: 0</span><span id="tetrisLevel">Level: 1</span></div>
+        <div class="g-canvas-wrap" style="max-width:200px; margin:0 auto;"><canvas id="tetrisCanvas" width="200" height="360"></canvas></div>
+        <div class="g-controls">
+          <button class="g-key" onclick="tetrisMove(-1)">⬅</button>
+          <button class="g-key" onclick="tetrisRotate()">⟳</button>
+          <button class="g-key" onclick="tetrisMove(1)">➡</button>
+          <button class="g-key" onclick="tetrisDrop()">⬇</button>
+        </div>
+      </div>`;
+    const cols=10, rows=18, cell=20;
+    const canvas = document.getElementById('tetrisCanvas');
+    const ctx = canvas.getContext('2d');
+    let board = Array.from({length:rows},()=>Array(cols).fill(0));
+    const shapes = {
+      I:[[1,1,1,1]], O:[[1,1],[1,1]], T:[[0,1,0],[1,1,1]],
+      S:[[0,1,1],[1,1,0]], Z:[[1,1,0],[0,1,1]], J:[[1,0,0],[1,1,1]], L:[[0,0,1],[1,1,1]]
+    };
+    const colors = {I:'#5FB0C7',O:'#FFD166',T:'#8A7FE0',S:'#8BC34A',Z:'#FF6B4A',J:'#4A3F6B',L:'#E86A9A'};
+    let score = 0, over = false, cur, level = 1, linesTotal = 0, speed = 600;
+    function newPiece(){
+      const keys = Object.keys(shapes);
+      const k = keys[Math.floor(Math.random()*keys.length)];
+      cur = { shape: shapes[k].map(r=>r.slice()), color: colors[k], x: Math.floor(cols/2)-1, y: 0 };
+      if (collide(cur.shape, cur.x, cur.y)) { over = true; endGame(); }
+    }
+    function collide(shape, ox, oy){
+      for (let y=0;y<shape.length;y++) for (let x=0;x<shape[y].length;x++){
+        if (!shape[y][x]) continue;
+        const nx=ox+x, ny=oy+y;
+        if (nx<0||nx>=cols||ny>=rows) return true;
+        if (ny>=0 && board[ny][nx]) return true;
+      }
+      return false;
+    }
+    function merge(){
+      cur.shape.forEach((row,y)=>row.forEach((v,x)=>{ if(v && cur.y+y>=0) board[cur.y+y][cur.x+x]=cur.color; }));
+    }
+    function clearLines(){
+      let cleared=0;
+      board = board.filter(row => { if (row.every(v=>v)) { cleared++; return false; } return true; });
+      while (board.length<rows) board.unshift(Array(cols).fill(0));
+      if (cleared){
+        score += cleared*100;
+        linesTotal += cleared;
+        document.getElementById('tetrisScore').textContent='Score: '+score;
+        const newLevel = 1 + Math.floor(linesTotal/4);
+        if (newLevel !== level){
+          level = newLevel;
+          speed = Math.max(160, 600 - (level-1)*50);
+          document.getElementById('tetrisLevel').textContent = 'Level: ' + level;
+          clearInterval(loop); loop = setInterval(tick, speed);
+        }
+      }
+    }
+    window.tetrisMove = (dx) => { if (!over && !collide(cur.shape, cur.x+dx, cur.y)) cur.x += dx; draw(); };
+    window.tetrisRotate = () => {
+      if (over) return;
+      const rotated = cur.shape[0].map((_,i)=>cur.shape.map(row=>row[i]).reverse());
+      if (!collide(rotated, cur.x, cur.y)) cur.shape = rotated;
+      draw();
+    };
+    window.tetrisDrop = () => {
+      if (over) return;
+      while (!collide(cur.shape, cur.x, cur.y+1)) cur.y++;
+      merge(); clearLines(); newPiece(); draw();
+    };
+    function tick(){
+      if (over) return;
+      if (!collide(cur.shape, cur.x, cur.y+1)) cur.y++;
+      else { merge(); clearLines(); newPiece(); }
+      draw();
+    }
+    function draw(){
+      ctx.fillStyle='#FFF8F2'; ctx.fillRect(0,0,cols*cell,rows*cell);
+      board.forEach((row,y)=>row.forEach((v,x)=>{ if(v){ ctx.fillStyle=v; ctx.fillRect(x*cell,y*cell,cell-1,cell-1); }}));
+      if (cur) cur.shape.forEach((row,y)=>row.forEach((v,x)=>{
+        if (v && cur.y+y>=0){ ctx.fillStyle=cur.color; ctx.fillRect((cur.x+x)*cell,(cur.y+y)*cell,cell-1,cell-1); }
+      }));
+    }
+    function endGame(){
+      clearInterval(loop);
+      document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">Game Over! Score: ${score} (Level ${level}) 🎉</div><button class="g-btn" onclick="startTetris()">Play Again</button>`);
+    }
+    function key(e){
+      if (e.key==='ArrowLeft') tetrisMove(-1);
+      if (e.key==='ArrowRight') tetrisMove(1);
+      if (e.key==='ArrowUp') tetrisRotate();
+      if (e.key==='ArrowDown') tetrisDrop();
+    }
+    document.addEventListener('keydown', key);
+    newPiece(); draw();
+    let loop = setInterval(tick, speed);
+    window._gameCleanup = () => { clearInterval(loop); document.removeEventListener('keydown', key); };
+  }
+
+  // ---------- Maze Runner ----------
+  function startMaze(){
+    document.getElementById('gameTitle').textContent = '🧵 Maze Runner';
+    const stage = document.getElementById('gameStage');
+    const layout = [
+      '#########',
+      '#S......#',
+      '#######.#',
+      '#.......#',
+      '#.#######',
+      '#.......#',
+      '#######.#',
+      '#......E#',
+      '#########'
+    ];
+    const cols = layout[0].length;
+    const grid = layout.map(r => r.split(''));
+    let player = {x:0,y:0}, exit = {x:0,y:0};
+    grid.forEach((row,y)=>row.forEach((c,x)=>{ if(c==='S') player={x,y}; if(c==='E') exit={x,y}; }));
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span>Get to the 🚩</span><span id="mazeMoves">Moves: 0</span></div>
+        <div class="g-grid-wrap" id="mazeGrid" style="grid-template-columns:repeat(${cols},1fr); gap:2px;"></div>
+        <div class="g-controls">
+          <button class="g-key" onclick="mazeMove(-1,0)">⬅</button>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <button class="g-key" onclick="mazeMove(0,-1)">⬆</button>
+            <button class="g-key" onclick="mazeMove(0,1)">⬇</button>
+          </div>
+          <button class="g-key" onclick="mazeMove(1,0)">➡</button>
+        </div>
+      </div>`;
+    let moves = 0, won = false;
+    function render(){
+      const wrap = document.getElementById('mazeGrid');
+      wrap.innerHTML = '';
+      grid.forEach((row,y)=>row.forEach((c,x)=>{
+        const d = document.createElement('div');
+        d.style.aspectRatio='1'; d.style.borderRadius='4px';
+        d.style.display='flex'; d.style.alignItems='center'; d.style.justifyContent='center'; d.style.fontSize='12px';
+        d.style.background = c==='#' ? 'var(--purple)' : '#fff';
+        if (x===exit.x && y===exit.y) d.textContent='🚩';
+        if (x===player.x && y===player.y) { d.style.background='var(--coral)'; d.textContent='😀'; }
+        wrap.appendChild(d);
+      }));
+    }
+    window.mazeMove = (dx,dy) => {
+      if (won) return;
+      const nx = player.x+dx, ny = player.y+dy;
+      if (grid[ny] && grid[ny][nx] && grid[ny][nx] !== '#'){
+        player = {x:nx,y:ny}; moves++;
+        document.getElementById('mazeMoves').textContent = 'Moves: ' + moves;
+        if (nx===exit.x && ny===exit.y){
+          won = true;
+          document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">You escaped in ${moves} moves! 🎉</div><button class="g-btn" onclick="startMaze()">Play Again</button>`);
+        }
+        render();
+      }
+    };
+    function key(e){
+      if (e.key==='ArrowLeft') mazeMove(-1,0);
+      if (e.key==='ArrowRight') mazeMove(1,0);
+      if (e.key==='ArrowUp') mazeMove(0,-1);
+      if (e.key==='ArrowDown') mazeMove(0,1);
+    }
+    document.addEventListener('keydown', key);
+    render();
+    window._gameCleanup = () => document.removeEventListener('keydown', key);
+  }
+
+  // ---------- Brick Breakout ----------
+  function startBreakout(){
+    document.getElementById('gameTitle').textContent = '🧨 Brick Breakout';
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="breakScore">Score: 0</span><span id="breakLevel">Level: 1 · Lives: 3</span></div>
+        <div class="g-canvas-wrap"><canvas id="breakCanvas" width="300" height="360"></canvas></div>
+      </div>`;
+    const canvas = document.getElementById('breakCanvas');
+    const ctx = canvas.getContext('2d');
+    const W=300,H=360, paddleW=60;
+    let paddleX = W/2-paddleW/2;
+    let ballSpeed = 2.5;
+    let ball = {x:W/2,y:H-40,vx:ballSpeed,vy:-ballSpeed};
+    let score=0, lives=3, over=false, level=1;
+    const cols=7, brickW=Math.floor(W/cols)-4, brickH=16;
+    let rows = 3;
+    let bricks = [];
+    function buildBricks(){
+      bricks = [];
+      for (let r=0;r<rows;r++) for(let c=0;c<cols;c++) bricks.push({x:c*(brickW+4)+2, y:r*(brickH+4)+20, alive:true});
+    }
+    buildBricks();
+    const brickColors = ['#FF6B4A','#FFD166','#8BC34A','#5FB0C7'];
+    function pointer(e){
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const x = (clientX-rect.left) * (W/rect.width);
+      paddleX = Math.min(Math.max(x-paddleW/2,0), W-paddleW);
+    }
+    canvas.addEventListener('mousemove', pointer);
+    canvas.addEventListener('touchmove', pointer);
+    function draw(){
+      ctx.fillStyle='#FFF8F2'; ctx.fillRect(0,0,W,H);
+      bricks.forEach((b,i) => { if(b.alive){ ctx.fillStyle = brickColors[Math.floor(i/cols)%brickColors.length]; ctx.fillRect(b.x,b.y,brickW,brickH); }});
+      ctx.fillStyle='#4A3F6B'; ctx.fillRect(paddleX,H-16,paddleW,10);
+      ctx.beginPath(); ctx.arc(ball.x,ball.y,6,0,Math.PI*2); ctx.fillStyle='#FF6B4A'; ctx.fill();
+    }
+    function endGame(msg){
+      clearInterval(loop);
+      document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">${msg}</div><button class="g-btn" onclick="startBreakout()">Play Again</button>`);
+    }
+    function nextLevel(){
+      level++; rows = Math.min(6, rows+1); ballSpeed = Math.min(5, ballSpeed+0.4);
+      buildBricks();
+      ball = {x:W/2,y:H-40,vx:ballSpeed,vy:-ballSpeed};
+      document.getElementById('breakLevel').textContent = `Level: ${level} · Lives: ${lives}`;
+    }
+    function tick(){
+      if (over) return;
+      ball.x += ball.vx; ball.y += ball.vy;
+      if (ball.x<=6||ball.x>=W-6) ball.vx*=-1;
+      if (ball.y<=6) ball.vy*=-1;
+      if (ball.y>=H-22 && ball.x>paddleX && ball.x<paddleX+paddleW) ball.vy = -Math.abs(ball.vy);
+      bricks.forEach(b => {
+        if (b.alive && ball.x>b.x && ball.x<b.x+brickW && ball.y>b.y && ball.y<b.y+brickH){
+          b.alive=false; ball.vy*=-1; score+=10;
+          document.getElementById('breakScore').textContent='Score: '+score;
+        }
+      });
+      if (ball.y > H){
+        lives--; document.getElementById('breakLevel').textContent = `Level: ${level} · Lives: ${lives}`;
+        if (lives<=0){ over=true; endGame('Game Over! Score: '+score+' (reached level '+level+')'); }
+        else ball = {x:W/2,y:H-40,vx:ballSpeed,vy:-ballSpeed};
+      }
+      if (bricks.every(b=>!b.alive)){ nextLevel(); }
+      draw();
+    }
+    draw();
+    const loop = setInterval(tick, 16);
+    window._gameCleanup = () => { clearInterval(loop); canvas.removeEventListener('mousemove',pointer); canvas.removeEventListener('touchmove',pointer); };
+  }
+
+  // ---------- Sliding Puzzle ----------
+  function startSliding(){
+    document.getElementById('gameTitle').textContent = '🔢 Sliding Puzzle';
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="slideMoves">Moves: 0</span><span></span></div>
+        <div class="g-grid-wrap" id="slideGrid" style="grid-template-columns:repeat(4,1fr);"></div>
+      </div>`;
+    let tiles = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
+    let blank = 15;
+    function getNeighbors(i){
+      const r = Math.floor(i/4), c = i%4, n=[];
+      if (r>0) n.push(i-4); if (r<3) n.push(i+4);
+      if (c>0) n.push(i-1); if (c<3) n.push(i+1);
+      return n;
+    }
+    for (let i=0;i<200;i++){
+      const neighbors = getNeighbors(blank);
+      const swap = neighbors[Math.floor(Math.random()*neighbors.length)];
+      [tiles[blank], tiles[swap]] = [tiles[swap], tiles[blank]];
+      blank = swap;
+    }
+    let moves = 0;
+    function render(){
+      const grid = document.getElementById('slideGrid');
+      grid.innerHTML = '';
+      tiles.forEach((v,i) => {
+        const c = document.createElement('div');
+        c.className = 'g-cell';
+        c.style.background = v===0 ? 'transparent' : '#fff';
+        c.style.boxShadow = v===0 ? 'none' : '0 4px 12px rgba(74,63,107,0.1)';
+        c.style.color = 'var(--purple)';
+        c.textContent = v===0 ? '' : v;
+        c.onclick = () => tryMove(i);
+        grid.appendChild(c);
+      });
+    }
+    function tryMove(i){
+      const blankIdx = tiles.indexOf(0);
+      if (getNeighbors(i).includes(blankIdx)){
+        [tiles[i], tiles[blankIdx]] = [tiles[blankIdx], tiles[i]];
+        moves++;
+        document.getElementById('slideMoves').textContent = 'Moves: ' + moves;
+        render();
+        if (tiles.every((v,idx) => v === (idx===15?0:idx+1))){
+          document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">Solved in ${moves} moves! 🎉</div><button class="g-btn" onclick="startSliding()">Play Again</button>`);
+        }
+      }
+    }
+    render();
+  }
+
+  // ---------- 2048 ----------
+  function start2048(){
+    document.getElementById('gameTitle').textContent = '🔀 2048';
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="mergeScore">Score: 0</span><span>Swipe or use arrows</span></div>
+        <div class="g-grid-wrap" id="mergeGrid" style="grid-template-columns:repeat(4,1fr);"></div>
+      </div>`;
+    let grid = Array.from({length:4},()=>Array(4).fill(0));
+    let score = 0;
+    const colors = {2:'#FBEEE2',4:'#FFE0C7',8:'#FFC299',16:'#FF6B4A',32:'#E5502F',64:'#4A3F6B',128:'#8A7FE0',256:'#5FB0C7',512:'#8BC34A',1024:'#FFD166',2048:'#E86A9A'};
+    function addTile(){
+      const empty = [];
+      grid.forEach((row,y)=>row.forEach((v,x)=>{ if(!v) empty.push([y,x]); }));
+      if (!empty.length) return;
+      const [y,x] = empty[Math.floor(Math.random()*empty.length)];
+      grid[y][x] = Math.random()<0.9 ? 2 : 4;
+    }
+    function render(){
+      const g = document.getElementById('mergeGrid');
+      g.innerHTML = '';
+      grid.forEach(row => row.forEach(v => {
+        const c = document.createElement('div');
+        c.className = 'g-cell';
+        c.style.background = v ? (colors[v]||'#E86A9A') : '#EFE6DC';
+        c.style.color = v>=16 ? '#fff' : 'var(--ink)';
+        c.style.fontSize = v>999 ? '15px' : '19px';
+        c.textContent = v || '';
+        g.appendChild(c);
+      }));
+      document.getElementById('mergeScore').textContent = 'Score: ' + score;
+    }
+    function slide(row){
+      let arr = row.filter(v=>v);
+      for (let i=0;i<arr.length-1;i++){
+        if (arr[i] === arr[i+1]){ arr[i]*=2; score+=arr[i]; arr.splice(i+1,1); }
+      }
+      while (arr.length<4) arr.push(0);
+      return arr;
+    }
+    function move(dir){
+      if (!dir) return;
+      const before = JSON.stringify(grid);
+      if (dir==='left'){ grid = grid.map(row => slide(row)); }
+      if (dir==='right'){ grid = grid.map(row => slide(row.slice().reverse()).reverse()); }
+      if (dir==='up'){ for (let x=0;x<4;x++){ let col = grid.map(row=>row[x]); col = slide(col); col.forEach((v,y)=>grid[y][x]=v); } }
+      if (dir==='down'){ for (let x=0;x<4;x++){ let col = grid.map(row=>row[x]).reverse(); col = slide(col).reverse(); col.forEach((v,y)=>grid[y][x]=v); } }
+      if (JSON.stringify(grid) !== before){ addTile(); render(); checkOver(); }
+    }
+    function checkOver(){
+      const full = grid.every(row=>row.every(v=>v));
+      if (!full) return;
+      for (let y=0;y<4;y++) for(let x=0;x<4;x++){
+        if (x<3 && grid[y][x]===grid[y][x+1]) return;
+        if (y<3 && grid[y][x]===grid[y+1][x]) return;
+      }
+      document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">Game Over! Score: ${score} 🎉</div><button class="g-btn" onclick="start2048()">Play Again</button>`);
+    }
+    function key(e){
+      if (e.key==='ArrowLeft') move('left');
+      if (e.key==='ArrowRight') move('right');
+      if (e.key==='ArrowUp') move('up');
+      if (e.key==='ArrowDown') move('down');
+    }
+    document.addEventListener('keydown', key);
+    let touchStart = null;
+    const stageEl = document.getElementById('gameStage');
+    function ts(e){ touchStart = e.touches[0]; }
+    function te(e){
+      if (!touchStart) return;
+      const dx = e.changedTouches[0].clientX - touchStart.clientX;
+      const dy = e.changedTouches[0].clientY - touchStart.clientY;
+      if (Math.abs(dx) > Math.abs(dy)) move(dx>30?'right':dx<-30?'left':null);
+      else move(dy>30?'down':dy<-30?'up':null);
+      touchStart = null;
+    }
+    stageEl.addEventListener('touchstart', ts);
+    stageEl.addEventListener('touchend', te);
+    addTile(); addTile(); render();
+    window._gameCleanup = () => {
+      document.removeEventListener('keydown', key);
+      stageEl.removeEventListener('touchstart', ts);
+      stageEl.removeEventListener('touchend', te);
+    };
+  }
+
+  // ---------- Number Rush ----------
+  function startNumRush(round){
+    round = round || 1;
+    document.getElementById('gameTitle').textContent = '🏁 Number Rush · Round ' + round;
+    const stage = document.getElementById('gameStage');
+    const count = Math.min(9 + round*3, 36);
+    const gridCols = count <= 16 ? 4 : count <= 25 ? 5 : 6;
+    const nums = Array.from({length:count},(_,i)=>i+1).sort(()=>Math.random()-0.5);
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="rushNext">Find: 1</span><span id="rushTime">Time: 0.0s</span></div>
+        <div class="g-grid-wrap" id="rushGrid" style="grid-template-columns:repeat(${gridCols},1fr);"></div>
+      </div>`;
+    const grid = document.getElementById('rushGrid');
+    let next = 1, startTime = null, timerInt = null;
+    function updateTime(){
+      document.getElementById('rushTime').textContent = 'Time: ' + ((performance.now()-startTime)/1000).toFixed(1) + 's';
+    }
+    nums.forEach(n => {
+      const c = document.createElement('div');
+      c.className = 'g-cell'; c.style.background = '#fff'; c.style.boxShadow = '0 4px 12px rgba(74,63,107,0.1)';
+      c.style.color = 'var(--purple)'; c.style.fontSize = count > 25 ? '14px' : '18px';
+      c.textContent = n;
+      c.onclick = () => {
+        if (!startTime){ startTime = performance.now(); timerInt = setInterval(updateTime, 100); }
+        if (n === next){
+          c.style.background = 'var(--lime)'; c.style.color='#fff'; c.onclick=null;
+          next++;
+          document.getElementById('rushNext').textContent = 'Find: ' + next;
+          if (next > count){
+            clearInterval(timerInt);
+            const total = ((performance.now()-startTime)/1000).toFixed(1);
+            document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">Round ${round} done in ${total}s! 🎉</div><button class="g-btn" onclick="startNumRush(${round+1})">Next Round →</button>`);
+          }
+        }
+      };
+      grid.appendChild(c);
+    });
+    window._gameCleanup = () => clearInterval(timerInt);
+  }
+
+  // ---------- Bubble Pop ----------
+  function startBubble(){
+    document.getElementById('gameTitle').textContent = '🫧 Bubble Pop';
+    const stage = document.getElementById('gameStage');
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="bubbleScore">Score: 0</span><span id="bubbleTime">Time: 20s</span></div>
+        <div style="position:relative; width:100%; height:360px; background:linear-gradient(180deg,#CFEFFF,#FFF8F2); border-radius:24px; overflow:hidden;" id="bubbleStage"></div>
+      </div>`;
+    const area = document.getElementById('bubbleStage');
+    let score=0, timeLeft=20, over=false, spawnRate=550;
+    function spawn(){
+      if (over) return;
+      const b = document.createElement('div');
+      const size = 30 + Math.random()*30;
+      b.style.position='absolute';
+      b.style.left = Math.random()*(280-size) + 'px';
+      b.style.bottom = '-40px';
+      b.style.width = size+'px'; b.style.height=size+'px';
+      b.style.borderRadius='50%';
+      b.style.background = ['#FF6B4A','#8BC34A','#5FB0C7','#FFD166','#8A7FE0'][Math.floor(Math.random()*5)];
+      b.style.opacity='0.85'; b.style.cursor='pointer';
+      b.style.transition = 'bottom 3.5s linear';
+      area.appendChild(b);
+      requestAnimationFrame(() => { b.style.bottom = '380px'; });
+      b.onclick = () => {
+        if (b.dataset.popped) return;
+        b.dataset.popped='1';
+        score++; document.getElementById('bubbleScore').textContent='Score: '+score;
+        b.remove();
+      };
+      setTimeout(() => b.remove(), 3600);
+      spawnRate = Math.max(220, spawnRate - 4);
+      spawnTimer = setTimeout(spawn, spawnRate);
+    }
+    let spawnTimer = setTimeout(spawn, spawnRate);
+    const timerInt = setInterval(() => {
+      timeLeft--; document.getElementById('bubbleTime').textContent='Time: '+timeLeft+'s';
+      if (timeLeft<=0){
+        over=true; clearTimeout(spawnTimer); clearInterval(timerInt);
+        document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">Time's up! Score: ${score} 🎉</div><button class="g-btn" onclick="startBubble()">Play Again</button>`);
+      }
+    }, 1000);
+    window._gameCleanup = () => { clearTimeout(spawnTimer); clearInterval(timerInt); };
+  }
+
+  // ---------- Color Match ----------
+  function startColorMatch(){
+    document.getElementById('gameTitle').textContent = '🎯 Color Match';
+    const stage = document.getElementById('gameStage');
+    let score=0, timeLeft=20, over=false, round=0;
+    stage.innerHTML = `
+      <div style="width:100%;">
+        <div class="g-hud"><span id="cmScore">Score: 0</span><span id="cmTime">Time: 20s</span></div>
+        <div style="text-align:center; margin-bottom:14px;">
+          <div style="font-weight:800; color:var(--muted); margin-bottom:8px;">Tap the matching color</div>
+          <div id="cmTarget" style="width:60px; height:60px; border-radius:50%; margin:0 auto; box-shadow:0 6px 16px rgba(0,0,0,0.15);"></div>
+        </div>
+        <div class="g-grid-wrap" id="cmGrid" style="grid-template-columns:repeat(3,1fr);"></div>
+      </div>`;
+    const basePalette = ['#FF6B4A','#8BC34A','#5FB0C7','#FFD166','#8A7FE0','#E86A9A','#4A3F6B','#E5502F','#3FA34D','#D68FFF','#FF9F6B','#4FC3F7','#C77DFF','#6FCF97','#F4A261','#5B8DEF','#F27CA5','#9CCC65'];
+    function newRound(){
+      round++;
+      const size = round < 4 ? 3 : round < 8 ? 4 : 5;
+      document.getElementById('cmGrid').style.gridTemplateColumns = `repeat(${size},1fr)`;
+      const shuffled = basePalette.slice().sort(()=>Math.random()-0.5).slice(0, size*size);
+      const target = shuffled[Math.floor(Math.random()*shuffled.length)];
+      document.getElementById('cmTarget').style.background = target;
+      const grid = document.getElementById('cmGrid');
+      grid.innerHTML = '';
+      shuffled.forEach(c => {
+        const d = document.createElement('div');
+        d.style.aspectRatio='1'; d.style.borderRadius='16px'; d.style.background=c; d.style.cursor='pointer';
+        d.onclick = () => {
+          if (over) return;
+          if (c === target){ score++; document.getElementById('cmScore').textContent='Score: '+score; newRound(); }
+          else d.style.opacity='0.3';
+        };
+        grid.appendChild(d);
+      });
+    }
+    const timerInt = setInterval(() => {
+      timeLeft--; document.getElementById('cmTime').textContent='Time: '+timeLeft+'s';
+      if (timeLeft<=0){
+        over=true; clearInterval(timerInt);
+        document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">Time's up! Score: ${score} 🎉</div><button class="g-btn" onclick="startColorMatch()">Play Again</button>`);
+      }
+    }, 1000);
+    newRound();
+    window._gameCleanup = () => clearInterval(timerInt);
+  }
+
+  // ---------- Timing Tap ----------
+  function startTiming(){
+    document.getElementById('gameTitle').textContent = '🎡 Timing Tap';
+    const stage = document.getElementById('gameStage');
+    let round=0, totalScore=0, totalRounds=8, zoneWidth=16;
+    stage.innerHTML = `
+      <div style="width:100%; text-align:center;">
+        <div class="g-hud"><span id="timingRound">Round: 0 / ${totalRounds}</span><span id="timingScore">Score: 0</span></div>
+        <div style="position:relative; width:100%; height:60px; background:#EFE6DC; border-radius:999px; overflow:hidden; margin:20px 0;">
+          <div id="timingZone" style="position:absolute; left:42%; width:16%; height:100%; background:var(--lime); opacity:0.5;"></div>
+          <div id="timingBar" style="position:absolute; top:6px; width:12px; height:48px; background:var(--coral); border-radius:6px;"></div>
+        </div>
+        <button class="g-btn" id="timingBtn">TAP!</button>
+        <div class="g-msg" id="timingMsg"></div>
+      </div>`;
+    let pos=0, dir=1, raf, speed=2.2;
+    function loop(){
+      pos += dir*speed;
+      if (pos>=100){ pos=100; dir=-1; }
+      if (pos<=0){ pos=0; dir=1; }
+      document.getElementById('timingBar').style.left = pos + '%';
+      raf = requestAnimationFrame(loop);
+    }
+    loop();
+    document.getElementById('timingBtn').onclick = () => {
+      if (round>=totalRounds) return;
+      const dist = Math.abs(pos-50);
+      const points = Math.max(0, 100-Math.round(dist*4));
+      totalScore += points; round++;
+      document.getElementById('timingMsg').textContent = points>70 ? 'Perfect! +' + points : points>30 ? 'Nice! +' + points : 'Missed! +' + points;
+      document.getElementById('timingScore').textContent = 'Score: ' + totalScore;
+      document.getElementById('timingRound').textContent = 'Round: ' + round + ' / ' + totalRounds;
+      zoneWidth = Math.max(6, 16 - round);
+      document.getElementById('timingZone').style.width = zoneWidth + '%';
+      document.getElementById('timingZone').style.left = (50 - zoneWidth/2) + '%';
+      speed = Math.min(4.5, speed + 0.2);
+      if (round>=totalRounds){
+        cancelAnimationFrame(raf);
+        document.getElementById('gameStage').insertAdjacentHTML('beforeend', `<div class="g-msg">Final Score: ${totalScore} / ${totalRounds*100} 🎉</div><button class="g-btn" onclick="startTiming()">Play Again</button>`);
+      }
+    };
+    window._gameCleanup = () => cancelAnimationFrame(raf);
+  }
+
+  // ---------- QUIZ ENGINE ----------
+  const QUIZZES = {
+    snack: {
+      title: 'Which Snack Are You?', type: 'personality',
+      questions: [
+        { q: "It's Friday night. You're most likely...", opts: [
+          { t:'Bingeing a show with friends', k:'chips' }, { t:'Curling up with a book', k:'chocolate' },
+          { t:'Going for a walk outside', k:'fruit' }, { t:'At a party or event', k:'popcorn' } ] },
+        { q: 'Pick a color that speaks to you.', opts: [
+          { t:'Orange', k:'chips' }, { t:'Deep purple', k:'chocolate' },
+          { t:'Green', k:'fruit' }, { t:'Yellow', k:'popcorn' } ] },
+        { q: 'Your ideal vacation is...', opts: [
+          { t:'A road trip with music blasting', k:'chips' }, { t:'A cozy cabin, no plans', k:'chocolate' },
+          { t:'Hiking somewhere scenic', k:'fruit' }, { t:'A big city full of things to do', k:'popcorn' } ] },
+        { q: 'How do you handle stress?', opts: [
+          { t:'Distract myself with something fun', k:'chips' }, { t:'Treat myself to something sweet', k:'chocolate' },
+          { t:'Get some fresh air', k:'fruit' }, { t:'Talk it out with people', k:'popcorn' } ] },
+        { q: 'Pick a movie genre.', opts: [
+          { t:'Action', k:'chips' }, { t:'Romance', k:'chocolate' },
+          { t:'Documentary', k:'fruit' }, { t:'Comedy', k:'popcorn' } ] }
+      ],
+      results: {
+        chips: { emoji:'🍟', title:'Salty Chips', desc:"You're bold, a little unpredictable, and you know exactly what you want. People love your energy — you bring the crunch to every room." },
+        chocolate: { emoji:'🍫', title:'Rich Chocolate', desc:"You're thoughtful and a little indulgent in the best way. You value comfort, depth, and quality over quantity." },
+        fruit: { emoji:'🍎', title:'Fresh Fruit', desc:"You're grounded, health-conscious, and naturally refreshing to be around. You bring balance wherever you go." },
+        popcorn: { emoji:'🍿', title:'Buttery Popcorn', desc:"You're social, easygoing, and always up for something fun. You're basically the life of every gathering." }
+      }
+    },
+    weekend: {
+      title: 'Your Weekend Vibe', type: 'personality',
+      questions: [
+        { q: 'Saturday morning starts with...', opts: [
+          { t:'An early hike or run', k:'adventurer' }, { t:'Sleeping in, no alarms', k:'homebody' },
+          { t:'Coffee with friends', k:'socialite' }, { t:'Planning a day trip', k:'explorer' } ] },
+        { q: 'Your dream weekend involves...', opts: [
+          { t:'Trying something new and thrilling', k:'adventurer' }, { t:'A blanket, a show, and snacks', k:'homebody' },
+          { t:'A gathering with people you love', k:'socialite' }, { t:'Exploring a new neighborhood', k:'explorer' } ] },
+        { q: 'Pick a weekend soundtrack.', opts: [
+          { t:'High-energy playlist', k:'adventurer' }, { t:'Lo-fi and chill', k:'homebody' },
+          { t:'Whatever\'s trending', k:'socialite' }, { t:'Podcasts about far-off places', k:'explorer' } ] },
+        { q: 'How do you recharge?', opts: [
+          { t:'Physical activity outdoors', k:'adventurer' }, { t:'Total solitude at home', k:'homebody' },
+          { t:'Being around people I love', k:'socialite' }, { t:'Discovering something new', k:'explorer' } ] },
+        { q: 'Your ideal Sunday evening?', opts: [
+          { t:'Sore muscles, happy heart', k:'adventurer' }, { t:'Pajamas by 6pm', k:'homebody' },
+          { t:'Wrapping up a fun brunch', k:'socialite' }, { t:'Already planning next weekend\'s trip', k:'explorer' } ] }
+      ],
+      results: {
+        adventurer: { emoji:'🏃', title:'The Adventurer', desc:"Your weekends run on adrenaline. Sitting still isn't really your thing — you'd rather be moving, sweating, and pushing limits." },
+        homebody: { emoji:'🛋️', title:'The Homebody', desc:"Your weekend is your sanctuary. Comfort, quiet, and doing absolutely nothing is exactly how you like to recharge." },
+        socialite: { emoji:'🎉', title:'The Socialite', desc:"Your weekends revolve around people. Brunches, hangouts, and good conversation — that's where you thrive." },
+        explorer: { emoji:'🗺️', title:'The Explorer', desc:"You're always curious about what's around the corner. New places, new experiences — your weekend is a mini adventure." }
+      }
+    },
+    animal: {
+      title: 'Your Animal Match', type: 'personality',
+      questions: [
+        { q: 'In a group project, you are the one who...', opts: [
+          { t:'Takes charge and plans everything', k:'fox' }, { t:'Notices details others miss', k:'owl' },
+          { t:'Keeps everyone\'s energy up', k:'dolphin' }, { t:'Makes sure everyone feels included', k:'bear' } ] },
+        { q: 'Your friends would describe you as...', opts: [
+          { t:'Clever and quick-witted', k:'fox' }, { t:'Wise and observant', k:'owl' },
+          { t:'Playful and social', k:'dolphin' }, { t:'Warm and protective', k:'bear' } ] },
+        { q: 'Your ideal work environment?', opts: [
+          { t:'Fast-paced and independent', k:'fox' }, { t:'Quiet, with room to think deeply', k:'owl' },
+          { t:'Collaborative and energetic', k:'dolphin' }, { t:'Supportive and steady', k:'bear' } ] },
+        { q: 'Pick a time of day.', opts: [
+          { t:'Late night', k:'fox' }, { t:'Early morning', k:'owl' },
+          { t:'Midday', k:'dolphin' }, { t:'Golden hour', k:'bear' } ] },
+        { q: 'How do you make decisions?', opts: [
+          { t:'Trust my instincts', k:'fox' }, { t:'Analyze every angle first', k:'owl' },
+          { t:'Go with what feels fun', k:'dolphin' }, { t:'Consider how it affects others', k:'bear' } ] }
+      ],
+      results: {
+        fox: { emoji:'🦊', title:'The Fox', desc:"Clever, adaptable, and always thinking two steps ahead. You navigate life with sharp instincts and quiet confidence." },
+        owl: { emoji:'🦉', title:'The Owl', desc:"Thoughtful and perceptive, you see what others overlook. People come to you when they need real, considered advice." },
+        dolphin: { emoji:'🐬', title:'The Dolphin', desc:"Social, playful, and full of energy. You bring joy wherever you go and genuinely love connecting with people." },
+        bear: { emoji:'🐻', title:'The Bear', desc:"Steady, protective, and dependable. You're the one people lean on, and you show up for the people you care about." }
+      }
+    },
+    season: {
+      title: 'Which Season Are You?', type: 'personality',
+      questions: [
+        { q: 'Pick a feeling.', opts: [
+          { t:'Fresh starts', k:'spring' }, { t:'Bold energy', k:'summer' },
+          { t:'Cozy nostalgia', k:'autumn' }, { t:'Calm stillness', k:'winter' } ] },
+        { q: 'Your ideal outfit?', opts: [
+          { t:'Light layers, pastel colors', k:'spring' }, { t:'Bright, breezy, minimal', k:'summer' },
+          { t:'Sweaters and warm tones', k:'autumn' }, { t:'Cozy coats, muted colors', k:'winter' } ] },
+        { q: 'A perfect day looks like...', opts: [
+          { t:'Planting something new', k:'spring' }, { t:'A day at the beach', k:'summer' },
+          { t:'A walk through falling leaves', k:'autumn' }, { t:'Hot drink, snow outside', k:'winter' } ] },
+        { q: 'Pick a mood.', opts: [
+          { t:'Hopeful', k:'spring' }, { t:'Energetic', k:'summer' },
+          { t:'Reflective', k:'autumn' }, { t:'Peaceful', k:'winter' } ] },
+        { q: 'Your favorite kind of celebration?', opts: [
+          { t:'A garden party', k:'spring' }, { t:'A big outdoor festival', k:'summer' },
+          { t:'A harvest dinner with family', k:'autumn' }, { t:'A quiet holiday by the fire', k:'winter' } ] }
+      ],
+      results: {
+        spring: { emoji:'🌸', title:'Spring', desc:"You're all about fresh starts and quiet optimism. Growth and renewal follow you wherever you go." },
+        summer: { emoji:'☀️', title:'Summer', desc:"Bold, bright, and full of life. You bring warmth and energy into every room you walk into." },
+        autumn: { emoji:'🍁', title:'Autumn', desc:"Cozy, reflective, and a little nostalgic. You find beauty in change and comfort in the familiar." },
+        winter: { emoji:'❄️', title:'Winter', desc:"Calm, composed, and deeply thoughtful. You find peace in stillness others might find quiet." }
+      }
+    },
+    gamer: {
+      title: 'Your Gamer Type', type: 'personality',
+      questions: [
+        { q: 'In a game, your first move is to...', opts: [
+          { t:'Plan out a long-term strategy', k:'strategist' }, { t:'Rush in and see what happens', k:'speedrunner' },
+          { t:'Explore every corner of the map', k:'explorer' }, { t:'Just relax and have fun', k:'casual' } ] },
+        { q: 'What frustrates you most in a game?', opts: [
+          { t:'Not being able to optimize my approach', k:'strategist' }, { t:'Slow pacing', k:'speedrunner' },
+          { t:'Missing hidden content', k:'explorer' }, { t:'Games that feel like homework', k:'casual' } ] },
+        { q: 'Pick a genre.', opts: [
+          { t:'Strategy / puzzle', k:'strategist' }, { t:'Fast-paced action', k:'speedrunner' },
+          { t:'Open-world adventure', k:'explorer' }, { t:'Casual / relaxing', k:'casual' } ] },
+        { q: 'How do you feel about leaderboards?', opts: [
+          { t:'I study them to improve', k:'strategist' }, { t:'I live for beating my best time', k:'speedrunner' },
+          { t:'I barely notice them', k:'explorer' }, { t:'I don\'t care about them at all', k:'casual' } ] },
+        { q: 'Your ideal gaming session is...', opts: [
+          { t:'Solving a tricky puzzle', k:'strategist' }, { t:'A quick, intense round', k:'speedrunner' },
+          { t:'Wandering without a goal', k:'explorer' }, { t:'A few minutes to unwind', k:'casual' } ] }
+      ],
+      results: {
+        strategist: { emoji:'♟️', title:'The Strategist', desc:"You think several moves ahead. Puzzles, planning, and optimization are where you truly shine." },
+        speedrunner: { emoji:'⚡', title:'The Speedrunner', desc:"You live for the rush. Fast reflexes and quick decisions are your bread and butter." },
+        explorer: { emoji:'🧭', title:'The Explorer', desc:"You play to discover, not to win. Every corner of a game world is worth exploring." },
+        casual: { emoji:'😌', title:'The Casual Player', desc:"For you, games are about unwinding, not competing. A few relaxing minutes is all you need." }
+      }
+    },
+    flags: {
+      title: 'Guess the Flag', type: 'trivia',
+      questions: [
+        { q: '🇯🇵 Which country does this flag belong to?', opts: ['Japan','China','South Korea','Thailand'], correct: 0 },
+        { q: '🇧🇷 Which country does this flag belong to?', opts: ['Portugal','Brazil','Argentina','Mexico'], correct: 1 },
+        { q: '🇨🇦 Which country does this flag belong to?', opts: ['USA','Canada','Australia','Norway'], correct: 1 },
+        { q: '🇮🇳 Which country does this flag belong to?', opts: ['Pakistan','Bangladesh','India','Nepal'], correct: 2 },
+        { q: '🇿🇦 Which country does this flag belong to?', opts: ['Kenya','Nigeria','Egypt','South Africa'], correct: 3 },
+        { q: '🇩🇪 Which country does this flag belong to?', opts: ['Belgium','Germany','Austria','Netherlands'], correct: 1 }
+      ]
+    },
+    capitals: {
+      title: 'Guess the Capital', type: 'trivia',
+      questions: [
+        { q: 'What is the capital of Australia?', opts: ['Sydney','Melbourne','Canberra','Perth'], correct: 2 },
+        { q: 'What is the capital of Canada?', opts: ['Toronto','Vancouver','Ottawa','Montreal'], correct: 2 },
+        { q: 'What is the capital of Egypt?', opts: ['Cairo','Alexandria','Giza','Luxor'], correct: 0 },
+        { q: 'What is the capital of Brazil?', opts: ['Rio de Janeiro','São Paulo','Brasília','Salvador'], correct: 2 },
+        { q: 'What is the capital of South Korea?', opts: ['Busan','Seoul','Incheon','Daegu'], correct: 1 },
+        { q: 'What is the capital of Turkey?', opts: ['Istanbul','Izmir','Ankara','Antalya'], correct: 2 }
+      ]
+    },
+    emoji: {
+      title: 'Emoji Movie Guess', type: 'trivia',
+      questions: [
+        { q: '🦁👑🌍 — Which movie?', opts: ['Madagascar','The Lion King','Zootopia','Jungle Book'], correct: 1 },
+        { q: '🕷️🧑‍🦱🕸️ — Which movie?', opts: ['Spider-Man','Batman','X-Men','Venom'], correct: 0 },
+        { q: '🧊❄️👸 — Which movie?', opts: ['Moana','Frozen','Encanto','Tangled'], correct: 1 },
+        { q: '🦈🌊🏖️ — Which movie?', opts: ['Finding Nemo','Jaws','Moana','Titanic'], correct: 1 },
+        { q: '🤖❤️🌱 — Which movie?', opts: ['WALL-E','Transformers','Big Hero 6','I, Robot'], correct: 0 },
+        { q: '🏠🎈🌎 — Which movie?', opts: ['Up','Coco','Inside Out','Soul'], correct: 0 }
+      ]
+    },
+    trivia: {
+      title: 'General Knowledge', type: 'trivia',
+      questions: [
+        { q: 'What is the largest planet in our solar system?', opts: ['Earth','Saturn','Jupiter','Neptune'], correct: 2 },
+        { q: 'How many continents are there?', opts: ['5','6','7','8'], correct: 2 },
+        { q: 'What gas do plants absorb from the air?', opts: ['Oxygen','Carbon dioxide','Nitrogen','Hydrogen'], correct: 1 },
+        { q: 'Which ocean is the largest?', opts: ['Atlantic','Indian','Arctic','Pacific'], correct: 3 },
+        { q: 'What is the hardest natural substance on Earth?', opts: ['Gold','Iron','Diamond','Quartz'], correct: 2 },
+        { q: 'How many strings does a standard guitar have?', opts: ['4','5','6','7'], correct: 2 }
+      ]
+    },
+    math: {
+      title: 'Math Speed Quiz', type: 'trivia',
+      questions: [
+        { q: '7 + 8 = ?', opts: ['13','14','15','16'], correct: 2 },
+        { q: '9 × 6 = ?', opts: ['54','56','45','63'], correct: 0 },
+        { q: '100 ÷ 4 = ?', opts: ['20','25','30','40'], correct: 1 },
+        { q: '15 − 7 = ?', opts: ['9','8','7','6'], correct: 1 },
+        { q: '12 × 12 = ?', opts: ['124','144','132','156'], correct: 1 },
+        { q: '81 ÷ 9 = ?', opts: ['8','7','9','11'], correct: 2 }
+      ]
+    }
+  };
+
+  function openQuiz(id){
+    document.getElementById('gameOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('gameTitle').textContent = QUIZZES[id].title;
+    runQuiz(id);
+  }
+
+  function runQuiz(id){
+    const quiz = QUIZZES[id];
+    let idx = 0;
+    const tally = {};
+    let score = 0;
+
+    function renderQuestion(){
+      const q = quiz.questions[idx];
+      const optsHtml = quiz.type === 'personality'
+        ? q.opts.map((o,i) => `<button class="quiz-opt" data-i="${i}">${o.t}</button>`).join('')
+        : q.opts.map((o,i) => `<button class="quiz-opt" data-i="${i}">${o}</button>`).join('');
+
+      document.getElementById('gameStage').innerHTML = `
+        <div class="quiz-wrap">
+          <div class="quiz-progress">Question ${idx+1} of ${quiz.questions.length}</div>
+          <div class="quiz-q">${q.q}</div>
+          <div class="quiz-opts">${optsHtml}</div>
+        </div>`;
+
+      document.querySelectorAll('.quiz-opt').forEach(btn => {
+        btn.onclick = () => {
+          const i = parseInt(btn.dataset.i, 10);
+          if (quiz.type === 'personality'){
+            const k = q.opts[i].k;
+            tally[k] = (tally[k] || 0) + 1;
+            advance();
+          } else {
+            document.querySelectorAll('.quiz-opt').forEach(b => b.onclick = null);
+            if (i === q.correct){
+              btn.classList.add('correct');
+              score++;
+            } else {
+              btn.classList.add('wrong');
+              document.querySelectorAll('.quiz-opt')[q.correct].classList.add('correct');
+            }
+            setTimeout(advance, 800);
+          }
+        };
+      });
+    }
+
+    function advance(){
+      idx++;
+      if (idx < quiz.questions.length){ renderQuestion(); }
+      else { quiz.type === 'personality' ? renderPersonalityResult() : renderTriviaResult(); }
+    }
+
+    function renderPersonalityResult(){
+      let topKey = Object.keys(tally)[0];
+      Object.keys(tally).forEach(k => { if (tally[k] > tally[topKey]) topKey = k; });
+      const r = quiz.results[topKey];
+      document.getElementById('gameStage').innerHTML = `
+        <div class="quiz-wrap quiz-result">
+          <div class="quiz-result-emoji">${r.emoji}</div>
+          <div class="quiz-result-title">${r.title}</div>
+          <div class="quiz-result-desc">${r.desc}</div>
+          <button class="g-btn" onclick="runQuiz('${id}')">Take Again</button>
+        </div>`;
+    }
+
+    function renderTriviaResult(){
+      document.getElementById('gameStage').innerHTML = `
+        <div class="quiz-wrap quiz-result">
+          <div class="quiz-result-emoji">🎯</div>
+          <div class="quiz-result-title">${score} / ${quiz.questions.length}</div>
+          <div class="quiz-result-desc">${score === quiz.questions.length ? 'Perfect score! You nailed every question.' : score >= quiz.questions.length/2 ? 'Nice work — solid knowledge!' : 'Good try — play again to improve your score.'}</div>
+          <button class="g-btn" onclick="runQuiz('${id}')">Play Again</button>
+        </div>`;
+    }
+
+    renderQuestion();
+    window._gameCleanup = null;
+  }
+</script>
+
+</body>
+</html>
