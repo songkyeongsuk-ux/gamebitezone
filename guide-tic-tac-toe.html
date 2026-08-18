@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tic-Tac-Toe: The Game Is Solved. Here's How to Never Lose — GameBiteZone</title>
+<meta name="description" content="Tic-Tac-Toe is a solved game that ends in a draw with perfect play. Here is the complete strategy, the double-threat trap, and why the centre opening matters.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --coral: #FF6B4A;
+    --coral-dark: #E5502F;
+    --purple: #4A3F6B;
+    --cream: #FFF8F2;
+    --cream-deep: #FBEEE2;
+    --lime: #8BC34A;
+    --ink: #2E2A33;
+    --muted: #8A8390;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Nunito Sans', sans-serif;
+    line-height:1.75;
+  }
+  h1,h2,h3,.display{ font-family:'Baloo 2', sans-serif; }
+
+  .bite-badge{ position:relative; display:inline-flex; width:1em; height:1em; }
+  .bite-shape{ width:100%; height:100%; border-radius:50%; position:relative; }
+  .bite-shape::after{
+    content:""; position:absolute; top:8%; right:-14%;
+    width:46%; height:46%; border-radius:50%; background:var(--cream);
+  }
+
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 6%;
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,248,242,0.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(46,42,51,0.06);
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Baloo 2', sans-serif; font-weight:800; font-size:22px;
+    color:var(--ink); text-decoration:none;
+  }
+  .logo .bite-badge{ width:34px; height:34px; font-size:34px; }
+  .logo .bite-shape{ background:var(--coral); }
+  .logo span.zone{ color:var(--coral-dark); }
+  .nav-links{ display:flex; gap:28px; list-style:none; font-weight:700; font-size:15px; }
+  .nav-links a{ color:var(--ink); text-decoration:none; opacity:0.75; }
+  .nav-links a:hover{ opacity:1; }
+  .nav-cta{
+    background:var(--coral); color:#fff; font-weight:800;
+    padding:11px 22px; border-radius:999px; text-decoration:none;
+    font-size:14.5px; box-shadow:0 4px 14px rgba(255,107,74,0.35);
+  }
+  @media (max-width: 760px){ .nav-links{ display:none; } }
+
+  .wrap{ max-width:780px; margin:0 auto; padding:56px 6% 90px; }
+  .crumbs{ font-size:13.5px; color:var(--muted); margin-bottom:18px; }
+  .crumbs a{ color:var(--muted); text-decoration:none; font-weight:700; }
+  .crumbs a:hover{ color:var(--coral-dark); }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-weight:800; font-size:12.5px; letter-spacing:1.2px; text-transform:uppercase;
+    color:var(--coral-dark); background:rgba(255,107,74,0.1);
+    padding:7px 15px; border-radius:999px; margin-bottom:18px;
+  }
+  h1{ font-size:clamp(30px,4.4vw,42px); line-height:1.15; margin-bottom:12px; }
+  .standfirst{ font-size:17.5px; color:var(--muted); margin-bottom:36px; }
+
+  h2{ font-size:23px; margin-top:42px; margin-bottom:14px; color:var(--purple); }
+  h3{ font-size:18px; margin-top:26px; margin-bottom:10px; color:var(--ink); }
+  p, li{ font-size:16px; color:#3B3641; margin-bottom:15px; }
+  ul, ol{ padding-left:24px; margin-bottom:18px; }
+  li{ margin-bottom:9px; }
+  a{ color:var(--coral-dark); font-weight:700; }
+  strong{ color:var(--ink); }
+
+  .factbox{
+    background:#fff; border:1px solid rgba(74,63,107,0.1);
+    border-radius:16px; padding:22px 26px; margin:26px 0;
+  }
+  .factbox h3{ margin-top:0; font-family:'Baloo 2',sans-serif; font-size:16px; color:var(--coral-dark); letter-spacing:0.3px; }
+  .factbox p:last-child, .factbox li:last-child{ margin-bottom:0; }
+
+  .tip{
+    background:var(--cream-deep); border-left:4px solid var(--lime);
+    border-radius:12px; padding:16px 22px; margin:22px 0; font-size:15.5px;
+  }
+  .tip strong{ color:var(--purple); }
+
+  .playbar{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    background:#fff; border:1px solid rgba(74,63,107,0.1); border-radius:18px;
+    padding:22px 26px; margin:34px 0; flex-wrap:wrap;
+  }
+  .playbar p{ margin:0; font-size:15px; color:var(--muted); max-width:420px; }
+  .playbar .btn{
+    background:var(--coral); color:#fff; font-weight:800; text-decoration:none;
+    padding:12px 26px; border-radius:999px; font-size:15px; white-space:nowrap;
+    box-shadow:0 4px 14px rgba(255,107,74,0.3);
+  }
+
+  .cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:18px; margin:28px 0; }
+  .card{
+    background:#fff; border:1px solid rgba(74,63,107,0.09); border-radius:16px;
+    padding:22px; text-decoration:none; color:inherit; display:block;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .card:hover{ transform:translateY(-3px); box-shadow:0 10px 26px rgba(46,42,51,0.08); }
+  .card .ic{ font-size:26px; display:block; margin-bottom:10px; }
+  .card h3{ margin:0 0 6px; font-size:17px; }
+  .card p{ margin:0; font-size:14px; color:var(--muted); }
+  .card .meta{ display:block; margin-top:12px; font-size:12.5px; font-weight:800; color:var(--coral-dark); letter-spacing:0.5px; }
+
+  .related{ border-top:1px solid rgba(46,42,51,0.1); margin-top:52px; padding-top:30px; }
+  .related h2{ margin-top:0; }
+
+  footer{
+    background:var(--purple); color:#fff; padding:48px 6% 26px;
+  }
+  .footer-top{ max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; }
+  footer .logo{ color:#fff; }
+  .footer-cols{ display:flex; gap:60px; flex-wrap:wrap; }
+  .footer-col h4{ font-size:14px; margin-bottom:14px; opacity:0.6; letter-spacing:0.5px; }
+  .footer-col a{ display:block; color:#fff; text-decoration:none; font-size:14.5px; margin-bottom:10px; opacity:0.85; }
+  .footer-bottom{ text-align:center; margin-top:34px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.15); font-size:13px; opacity:0.6; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <span class="bite-badge"><span class="bite-shape"></span></span>
+    Game<span class="zone">Bite</span>Zone
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#games">Games</a></li>
+    <li><a href="index.html#games">Puzzles</a></li>
+    <li><a href="index.html#games">Quizzes</a></li>
+    <li><a href="guides.html">Guides</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="index.html#games" class="nav-cta">Play Now</a>
+</nav>
+
+<div class="wrap">
+  <div class="crumbs"><a href="index.html">Home</a> &rsaquo; <a href="guides.html">Guides</a> &rsaquo; Tic-Tac-Toe</div>
+  <div class="eyebrow">Game Guide</div>
+  <h1>Tic-Tac-Toe Is Solved. Here's How to Never Lose.</h1>
+  <p class="standfirst">With perfect play from both sides, every game of Tic-Tac-Toe is a draw. That sounds like it makes the game pointless &mdash; it actually makes it a clean lesson in forcing moves and double threats.</p>
+
+
+  <p>Tic-Tac-Toe has been played in some form for a very long time; grid games with a similar shape turn up in the ancient world, and the three-in-a-row version we know is a direct descendant. Its modern significance is different: it's small enough to be completely solved, which makes it one of the best teaching examples in game theory.</p>
+
+  <p><strong>Solved</strong> means the entire game tree has been worked out. Every possible position has a known best move and a known outcome. The conclusion is unambiguous: if both players play perfectly, the game is always a draw. You cannot force a win against a perfect opponent — but you can guarantee you never lose.</p>
+
+  <h2>The three principles, in priority order</h2>
+  <p>Almost all of correct play collapses into a simple checklist. On every turn, run through it in order and take the first thing that applies.</p>
+  <ol>
+    <li><strong>Can I win this move?</strong> If two of your marks share a line and the third square is empty, take it. Nothing else matters.</li>
+    <li><strong>Can my opponent win next move?</strong> If they have two in a line with an empty third, block it.</li>
+    <li><strong>Can I create two threats at once?</strong> This is where games are actually won.</li>
+  </ol>
+  <p>Steps 1 and 2 are obvious enough that most players do them automatically. Step 3 is where beginners lose.</p>
+
+  <div class="factbox">
+    <h3>The double threat (the fork)</h3>
+    <p>A fork is a single move that creates two separate winning threats at the same time. Your opponent can block one of them. They cannot block both. The game is decided the moment the fork lands &mdash; everything after is formality.</p>
+    <p>Every loss in Tic-Tac-Toe between competent players comes from allowing a fork. Every win comes from creating one.</p>
+  </div>
+
+  <h2>Playing first: the centre opening</h2>
+  <p>The centre square sits on four of the eight winning lines — both diagonals, the middle row, and the middle column. No other square touches more than three. Opening in the centre is the strongest first move because it maximises the lines available to you and denies your opponent the most valuable square on the board.</p>
+  <p>If your opponent responds anywhere other than a corner, they've made a mistake and you can usually build a fork within two moves. If they respond in a corner — the correct reply — the game heads toward a draw with accurate play from both sides.</p>
+
+  <h3>Corner openings and the trap</h3>
+  <p>A corner opening is also strong, and against a human opponent it's arguably more <em>practically</em> dangerous than the centre, because the correct defence is less intuitive. After a corner opening, the only reply that holds the draw is the centre. Anything else — another corner, an edge — hands you a forced win with correct follow-up.</p>
+
+  <div class="tip">
+    <strong>Never open on an edge.</strong> Edge squares sit on only two winning lines each, making them the weakest opening on the board. There is no situation where an edge is your best first move.
+  </div>
+
+  <h2>Playing second: how to survive</h2>
+  <p>Going second is harder, and the defence depends entirely on their opening:</p>
+  <ul>
+    <li><strong>They took the centre?</strong> Take a corner. An edge reply loses to correct play.</li>
+    <li><strong>They took a corner?</strong> Take the centre. This is forced — anything else loses.</li>
+    <li><strong>They took an edge?</strong> Take the centre. You now have the better position from a worse starting turn.</li>
+  </ul>
+  <p>After that, work the checklist: win if you can, block if you must, and check every move you're considering for whether it hands them a fork.</p>
+
+  <h2>The number that makes it solvable</h2>
+  <p>There are 255,168 possible complete games of Tic-Tac-Toe if you count every sequence of moves. Accounting for symmetry — rotations and reflections that are strategically identical — the number of genuinely distinct positions drops to a few hundred. That's small enough that the whole game can be worked out exhaustively, which is why it shows up in almost every introductory course on game trees and minimax search.</p>
+  <p>It's also why writing a Tic-Tac-Toe opponent that never loses is a standard beginner programming exercise, while the same approach is hopeless for chess or Go.</p>
+
+  <div class="playbar">
+    <p>Tic-Tac-Toe is in the Games tab. Try opening in a corner rather than the centre and see whether your opponent finds the only correct reply.</p>
+    <a href="index.html#games" class="btn">Play Tic-Tac-Toe &rarr;</a>
+  </div>
+
+  <h2>What to do with a solved game</h2>
+  <p>Once both players know the strategy, every game is a draw and the fun runs out — which is exactly what happens to most people around age eight. The interesting move at that point is to change the rules rather than the players: larger boards, four-in-a-row, gravity-fed columns, or three-dimensional grids. All of these grow the game tree past the point of easy solution, which is where the strategy gets interesting again.</p>
+
+  <div class="related">
+    <h2>More guides to read</h2>
+    <div class="cards">
+    <a class="card" href="guide-2048.html"><span class="ic">🔀</span><h3>2048</h3><p>The corner method, explained properly.</p><span class="meta">READ GUIDE</span></a>
+    <a class="card" href="guide-rock-paper-scissors.html"><span class="ic">✂️</span><h3>Rock Paper Scissors</h3><p>A game with no correct move, and why that matters.</p><span class="meta">READ GUIDE</span></a>
+    <a class="card" href="guides.html"><span class="ic">📚</span><h3>All Guides</h3><p>Every guide on GameBiteZone.</p><span class="meta">READ GUIDE</span></a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="index.html" class="logo">
+        <span class="bite-badge"><span class="bite-shape"></span></span>
+        Game<span class="zone" style="color:var(--coral);">Bite</span>Zone
+      </a>
+      <p style="max-width:280px; margin-top:14px; opacity:0.6; font-size:14.5px;">
+        Small games. Big fun. Built for everyone, everywhere &mdash; especially where the internet is slow and every megabyte counts.
+      </p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>PLAY</h4>
+        <a href="index.html#games">Games</a>
+        <a href="index.html#games">Puzzles</a>
+        <a href="index.html#games">Quizzes</a>
+      </div>
+      <div class="footer-col">
+        <h4>READ</h4>
+        <a href="guides.html">All Guides</a>
+        <a href="guide-snake.html">Snake Guide</a>
+        <a href="guide-2048.html">2048 Guide</a>
+        <a href="fast-loading-games.html">Fast Games List</a>
+      </div>
+      <div class="footer-col">
+        <h4>SITE</h4>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Contact</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 GameBiteZone. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
